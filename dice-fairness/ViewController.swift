@@ -8,18 +8,21 @@
 
 import UIKit
 
+let nSides = 8
+
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
+	@IBOutlet weak var buttonAreaHeightConstraint: NSLayoutConstraint?
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if let vc = segue.destination as? ButtonViewController {
+			vc.setNButtons(nSides)
+			vc.buttonAreaHeightConstraint = self.buttonAreaHeightConstraint
+		}
+		else if let vc = segue.destination as? GraphViewController {
+			vc.setNBars(nSides)
+		}
+	}
 
 }
 

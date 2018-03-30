@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NumberView" customModule="dice_fairness" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zGR-fk-FcC">
+                    <rect key="frame" x="0.0" y="0.0" width="251.5" height="667"/>
+                    <gestureRecognizers/>
+                    <state key="normal" title="N"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="BNV-iz-I06" appends="YES" id="Eec-od-84o"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="pza-WK-p5e">
+                    <rect key="frame" x="241.5" y="0.0" width="123.5" height="667"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="pza-WK-p5e" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="1df-ce-0gB"/>
+                <constraint firstItem="zGR-fk-FcC" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.67" id="cKl-5R-IBJ"/>
+                <constraint firstItem="zGR-fk-FcC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="huf-to-M2f"/>
+                <constraint firstItem="zGR-fk-FcC" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="ihd-tg-Npt"/>
+                <constraint firstAttribute="trailing" secondItem="pza-WK-p5e" secondAttribute="trailing" constant="10" id="jiL-3W-aqr"/>
+                <constraint firstItem="pza-WK-p5e" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="sqm-Fl-NV8"/>
+                <constraint firstItem="pza-WK-p5e" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.33" id="wXu-Eg-1h7"/>
+                <constraint firstItem="zGR-fk-FcC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="z5U-Nl-ASE"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="button" destination="zGR-fk-FcC" id="zgQ-5R-xjv"/>
+                <outlet property="label" destination="pza-WK-p5e" id="aAJ-Si-bmb"/>
+            </connections>
+        </view>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="BNV-iz-I06"/>
+    </objects>
+</document>
