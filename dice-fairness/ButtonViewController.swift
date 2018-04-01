@@ -9,7 +9,7 @@
 import UIKit
 
 let horzContainerSize = CGFloat(130)
-let vertContainerMinSize = CGFloat(44)
+let vertContainerMinSize = CGFloat(35)
 let vertContainerMaxSize = CGFloat(55)
 let vertContainerMaxSpacing = CGFloat(20)
 
@@ -18,20 +18,28 @@ class ButtonViewController: UIViewController {
 	weak var buttonAreaHeightConstraint: NSLayoutConstraint?
 
 	var numberViews: [NumberView] = []
-	var countsForNumbers: Dictionary<Int,Int> = [:]
 
-	func setNButtons(_ n: Int) {
-		DispatchQueue.main.async {
-			self.updateLayout(n)
-		}
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		NotificationCenter.default.addObserver(self, selector: #selector(countsUpdated), name: NSNotification.Name(rawValue: "countsUpdated"), object: nil)
 	}
 
-	func updateLayout(_ nButtons: Int) {
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		self.updateLayout()
+	}
+
+	func updateLayout() {
+		print("update button layout with", RollCountsController.shared.currentNSides())
+		let nButtons = RollCountsController.shared.currentNSides()
+		if nButtons == self.numberViews.count { return }
+
 		for v in self.numberViews {
 			v.removeFromSuperview()
 		}
 		self.numberViews = []
-		self.countsForNumbers = Dictionary<Int,Int>()
 
 		// decide on spacing for layout
 		let buttonsPerCol = nButtons/2
@@ -57,8 +65,8 @@ class ButtonViewController: UIViewController {
 				if (numberView.button?.gestureRecognizers?.count)! > 0 {
 					numberView.button!.gestureRecognizers![0].addTarget(self, action: #selector(buttonLongPressed))
 				}
+				numberView.label?.text = String(format: "%d", RollCountsController.shared.rollCounts.countsForNumbers[i + 1]!)
 
-				self.countsForNumbers[i + 1] = 0
 				self.numberViews.append(numberView)
 				self.view.addSubview(numberView)
 
@@ -99,20 +107,26 @@ class ButtonViewController: UIViewController {
 
 	@objc func buttonPressed(sender: Any?) {
 		let i = self.indexFromEvent(sender)
-		let curCount = self.countsForNumbers[i + 1]!
-		self.countsForNumbers[i + 1] = curCount + 1
-		self.numberViews[i].label?.text = String(format: "%d", curCount + 1)
-		NotificationCenter.default.post(name: NSNotification.Name(rawValue: "countsUpdated"), object: self.countsForNumbers, userInfo: nil)
+		RollCountsController.shared.incrementCountForNumber(i + 1, by: 1)
 	}
 
 	@objc func buttonLongPressed(sender: Any?) {
 		if let gestureRecognizer = sender as? UIGestureRecognizer, gestureRecognizer.state == .began {
 			let i = self.indexFromEvent(sender)
-			let curCount = self.countsForNumbers[i + 1]!
-			if curCount > 0 {
-				self.countsForNumbers[i + 1] = curCount - 1
-				self.numberViews[i].label?.text = String(format: "%d", curCount - 1)
-				NotificationCenter.default.post(name: NSNotification.Name(rawValue: "countsUpdated"), object: self.countsForNumbers, userInfo: nil)
+			RollCountsController.shared.incrementCountForNumber(i + 1, by: -1)
+		}
+	}
+
+	@objc func countsUpdated(note: Notification) {
+		if RollCountsController.shared.currentNSides() != self.numberViews.count {
+			self.updateLayout()
+		}
+		if let number = note.userInfo?["number"] as? Int,
+			let count = note.userInfo?["count"] as? Int {
+			self.numberViews[number - 1].label?.text = String(format: "%d", count)
+		}
+		else {
+			for v in self.numberViews {
 			}
 		}
 	}

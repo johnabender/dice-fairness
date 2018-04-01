@@ -11,12 +11,12 @@ import UIKit
 let barSpacing = CGFloat(2)
 let sideMargins = CGFloat(20)
 let topMargin = CGFloat(20)
-let bottomMargin = CGFloat(40)
+let bottomMargin = CGFloat(30)
 let labelHeight = CGFloat(20)
 
 class GraphView: UIView {
 
-	var countsForNumbers: Dictionary<Int,Int> = [:]
+	var rollCounts: RollCounts = RollCounts()
 
 	func setupLabels(_ n: Int) {
 		if n == self.subviews.count { return }
@@ -27,6 +27,8 @@ class GraphView: UIView {
 		for i in 0..<n {
 			let label = UILabel()
 			label.translatesAutoresizingMaskIntoConstraints = false
+			label.adjustsFontSizeToFitWidth = true
+			label.minimumScaleFactor = 0.5
 			label.text = String(format: "%d", i + 1)
 			label.textAlignment = .center
 			label.textColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -41,10 +43,27 @@ class GraphView: UIView {
 			self.addConstraints([labelBottomConstraint, labelLeftConstraint])
 			label.addConstraints([labelHeightConstraint, labelWidthConstraint])
 		}
+
+		DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
+			var minFontSize = CGFloat(100)
+			for v in self.subviews {
+				if let label = v as? UILabel {
+					if label.font.pointSize < minFontSize {
+						minFontSize = label.font.pointSize
+					}
+				}
+			}
+			print("min font size is", minFontSize)
+			for v in self.subviews {
+				if let label = v as? UILabel {
+					label.font = label.font.withSize(minFontSize)
+				}
+			}
+		}
 	}
 
 	override func draw(_ rect: CGRect) {
-		let nBars = self.countsForNumbers.count
+		let nBars = self.rollCounts.countsForNumbers.count
 		if nBars == 0 { return }
 
 		if nBars != self.subviews.count {
@@ -55,8 +74,8 @@ class GraphView: UIView {
 
 		var maxCount = 0
 		for i in 1...nBars {
-			if self.countsForNumbers[i]! > maxCount {
-				maxCount = self.countsForNumbers[i]!
+			if self.rollCounts.countsForNumbers[i]! > maxCount {
+				maxCount = self.rollCounts.countsForNumbers[i]!
 			}
 		}
 
@@ -67,7 +86,7 @@ class GraphView: UIView {
 
 		for i in 1...nBars {
 			let x = sideMargins + CGFloat(i - 1)*(barWidth + barSpacing)
-			let height = CGFloat(self.countsForNumbers[i]!)*(self.frame.size.height - topMargin - bottomMargin)/CGFloat(maxCount)
+			let height = CGFloat(self.rollCounts.countsForNumbers[i]!)*(self.frame.size.height - topMargin - bottomMargin)/CGFloat(maxCount)
 			let whitespace = self.frame.size.height - topMargin - bottomMargin - height
 			UIRectFill(CGRect(x: x, y: topMargin + whitespace, width: barWidth, height: height))
 		}

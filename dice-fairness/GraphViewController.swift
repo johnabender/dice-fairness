@@ -16,17 +16,17 @@ class GraphViewController: UIViewController {
 		NotificationCenter.default.addObserver(self, selector: #selector(countsUpdated), name: NSNotification.Name(rawValue: "countsUpdated"), object: nil)
 	}
 
-	func setNBars(_ n: Int) {
-		DispatchQueue.main.async {
-			if let view = self.view as? GraphView {
-				view.setupLabels(n)
-			}
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		if let view = self.view as? GraphView {
+			view.setupLabels(RollCountsController.shared.currentNSides())
 		}
 	}
 
 	@objc func countsUpdated(note: Notification) {
-		if let dict = note.object as? Dictionary<Int,Int>, let view = self.view as? GraphView {
-			view.countsForNumbers = dict
+		if let rollCounts = note.object as? RollCounts, let view = self.view as? GraphView {
+			view.rollCounts = rollCounts
 			view.setNeedsDisplay()
 		}
 	}

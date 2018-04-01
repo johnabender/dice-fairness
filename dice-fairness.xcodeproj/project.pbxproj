@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		372E5FCD206EB0F900385C65 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E5FCC206EB0F900385C65 /* GraphView.swift */; };
+		377868E1206EED3D003A32D8 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377868E0206EED3D003A32D8 /* OptionsViewController.swift */; };
+		377868E320718E07003A32D8 /* RollCounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377868E220718E07003A32D8 /* RollCounts.swift */; };
+		377868E520718E2F003A32D8 /* RollCountsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377868E420718E2E003A32D8 /* RollCountsController.swift */; };
 		3779FBBB206DA47F00B86AFA /* NumberView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3779FBBA206DA47F00B86AFA /* NumberView.xib */; };
 		3779FBC1206DA5A100B86AFA /* NumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3779FBC0206DA5A100B86AFA /* NumberView.swift */; };
 		378E8CC6206AAAD900CB67D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E8CC5206AAAD900CB67D7 /* AppDelegate.swift */; };
@@ -21,6 +24,9 @@
 
 /* Begin PBXFileReference section */
 		372E5FCC206EB0F900385C65 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		377868E0206EED3D003A32D8 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
+		377868E220718E07003A32D8 /* RollCounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollCounts.swift; sourceTree = "<group>"; };
+		377868E420718E2E003A32D8 /* RollCountsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollCountsController.swift; sourceTree = "<group>"; };
 		3779FBBA206DA47F00B86AFA /* NumberView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumberView.xib; sourceTree = "<group>"; };
 		3779FBC0206DA5A100B86AFA /* NumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberView.swift; sourceTree = "<group>"; };
 		378E8CC2206AAAD900CB67D7 /* dice-fairness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dice-fairness.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +75,9 @@
 				378E8CD7206AFDAB00CB67D7 /* ButtonViewController.swift */,
 				378E8CD9206AFDB500CB67D7 /* GraphViewController.swift */,
 				372E5FCC206EB0F900385C65 /* GraphView.swift */,
+				377868E0206EED3D003A32D8 /* OptionsViewController.swift */,
+				377868E420718E2E003A32D8 /* RollCountsController.swift */,
+				377868E220718E07003A32D8 /* RollCounts.swift */,
 				378E8CC9206AAAD900CB67D7 /* Main.storyboard */,
 				3779FBC0206DA5A100B86AFA /* NumberView.swift */,
 				3779FBBA206DA47F00B86AFA /* NumberView.xib */,
@@ -152,9 +161,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				377868E320718E07003A32D8 /* RollCounts.swift in Sources */,
 				378E8CC8206AAAD900CB67D7 /* ViewController.swift in Sources */,
 				378E8CDA206AFDB500CB67D7 /* GraphViewController.swift in Sources */,
 				378E8CD8206AFDAB00CB67D7 /* ButtonViewController.swift in Sources */,
+				377868E1206EED3D003A32D8 /* OptionsViewController.swift in Sources */,
+				377868E520718E2F003A32D8 /* RollCountsController.swift in Sources */,
 				3779FBC1206DA5A100B86AFA /* NumberView.swift in Sources */,
 				378E8CC6206AAAD900CB67D7 /* AppDelegate.swift in Sources */,
 				372E5FCD206EB0F900385C65 /* GraphView.swift in Sources */,

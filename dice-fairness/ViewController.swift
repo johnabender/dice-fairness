@@ -8,21 +8,25 @@
 
 import UIKit
 
-let nSides = 8
+let initialNSides = 20
 
 class ViewController: UIViewController {
 
 	@IBOutlet weak var buttonAreaHeightConstraint: NSLayoutConstraint?
 
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		RollCountsController.shared.resetCountsWithNSides(initialNSides)
+	}
+
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if let vc = segue.destination as? ButtonViewController {
-			vc.setNButtons(nSides)
-			vc.buttonAreaHeightConstraint = self.buttonAreaHeightConstraint
-		}
-		else if let vc = segue.destination as? GraphViewController {
-			vc.setNBars(nSides)
+		if let buttonVC = segue.destination as? ButtonViewController {
+			buttonVC.buttonAreaHeightConstraint = self.buttonAreaHeightConstraint
 		}
 	}
 
+	@IBAction func pressedResetCounts() {
+		RollCountsController.shared.resetCounts()
+	}
 }
-
