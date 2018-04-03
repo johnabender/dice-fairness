@@ -18,12 +18,26 @@ class GraphView: UIView {
 
 	var rollCounts: RollCounts = RollCounts()
 
+	// https://stackoverflow.com/questions/28284063/how-do-i-get-auto-adjusted-font-size-in-ios-7-0-or-later/28285447#28285447
+	func approximateAdjustedFontSizeWithLabel(_ label: UILabel) -> CGFloat {
+		var currentFont: UIFont = label.font
+		let originalFontSize = currentFont.pointSize
+		var currentSize: CGSize = (label.text! as NSString).size(withAttributes: [NSAttributedStringKey.font: currentFont])
+
+		while currentSize.width > label.frame.size.width && currentFont.pointSize > (originalFontSize * label.minimumScaleFactor) {
+			currentFont = currentFont.withSize(currentFont.pointSize - 1.0)
+			currentSize = (label.text! as NSString).size(withAttributes: [NSAttributedStringKey.font: currentFont])
+		}
+
+		return currentFont.pointSize
+	}
+
 	func setupLabels(_ n: Int) {
 		if n == self.subviews.count { return }
 		self.subviews.forEach { $0.removeFromSuperview() }
 
-		let barWidth = (self.frame.size.width - 2.0*sideMargins - CGFloat(n - 1)*barSpacing)/CGFloat(n)
-
+		// build out from center
+		var prevLabel: UILabel? = nil
 		for i in 0..<n {
 			let label = UILabel()
 			label.translatesAutoresizingMaskIntoConstraints = false
@@ -34,26 +48,33 @@ class GraphView: UIView {
 			label.textColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 			self.addSubview(label)
 
-			let x = sideMargins + CGFloat(i)*(barWidth + barSpacing)
-			let labelLeftConstraint = NSLayoutConstraint(item: label, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: x)
-			let labelWidthConstraint = NSLayoutConstraint(item: label, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: barWidth)
-			let labelBottomConstraint = NSLayoutConstraint(item: label, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -bottomMargin + labelHeight)
-			let labelHeightConstraint = NSLayoutConstraint(item: label, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: labelHeight)
+			label.addConstraint(NSLayoutConstraint(item: label, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: labelHeight))
+			self.addConstraint(NSLayoutConstraint(item: label, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -bottomMargin + labelHeight))
+			if i == 0 {
+				self.addConstraint(NSLayoutConstraint(item: label, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: sideMargins))
+			}
+			else {
+				self.addConstraints([NSLayoutConstraint(item: label, attribute: .left, relatedBy: .equal, toItem: prevLabel, attribute: .right, multiplier: 1.0, constant: barSpacing),
+											NSLayoutConstraint(item: label, attribute: .width, relatedBy: .equal, toItem: prevLabel, attribute: .width, multiplier: 1.0, constant: 0.0)])
+			}
+			if i == n - 1 {
+				self.addConstraint(NSLayoutConstraint(item: label, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: -sideMargins))
+			}
 
-			self.addConstraints([labelBottomConstraint, labelLeftConstraint])
-			label.addConstraints([labelHeightConstraint, labelWidthConstraint])
+			prevLabel = label
 		}
 
-		DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
+		// choose minimum constant font size
+		DispatchQueue.main.async {
 			var minFontSize = CGFloat(100)
 			for v in self.subviews {
 				if let label = v as? UILabel {
-					if label.font.pointSize < minFontSize {
-						minFontSize = label.font.pointSize
+					let curFontSize = self.approximateAdjustedFontSizeWithLabel(label)
+					if curFontSize < minFontSize {
+						minFontSize = curFontSize
 					}
 				}
 			}
-			print("min font size is", minFontSize)
 			for v in self.subviews {
 				if let label = v as? UILabel {
 					label.font = label.font.withSize(minFontSize)

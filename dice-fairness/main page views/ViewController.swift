@@ -8,7 +8,7 @@
 
 import UIKit
 
-let initialNSides = 20
+let initialNSides = 8
 
 class ViewController: UIViewController {
 

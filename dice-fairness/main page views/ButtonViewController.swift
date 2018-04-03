@@ -32,7 +32,6 @@ class ButtonViewController: UIViewController {
 	}
 
 	func updateLayout() {
-		print("update button layout with", RollCountsController.shared.currentNSides())
 		let nButtons = RollCountsController.shared.currentNSides()
 		if nButtons == self.numberViews.count { return }
 
@@ -43,18 +42,19 @@ class ButtonViewController: UIViewController {
 
 		// decide on spacing for layout
 		let buttonsPerCol = nButtons/2
-		let horzContainerSpacing = (self.view.frame.size.width - 2*horzContainerSize)/3
+		let vertViewDefaultSize = CGFloat(10)*vertContainerMinSize // 10 = half the max expected number
 		var vertContainerSize = vertContainerMinSize
-		var vertContainerSpacing = (self.view.frame.size.height - CGFloat(buttonsPerCol)*vertContainerSize)/CGFloat(buttonsPerCol + 1)
+		var vertContainerSpacing = (vertViewDefaultSize - CGFloat(buttonsPerCol)*vertContainerSize)/CGFloat(buttonsPerCol + 1)
 		if vertContainerSpacing > vertContainerMaxSpacing {
 			vertContainerSpacing = vertContainerMaxSpacing
-			vertContainerSize = (self.view.frame.size.height - CGFloat(buttonsPerCol + 1)*vertContainerSpacing)/CGFloat(buttonsPerCol)
+			vertContainerSize = (vertViewDefaultSize - CGFloat(buttonsPerCol + 1)*vertContainerSpacing)/CGFloat(buttonsPerCol)
 			if vertContainerSize > vertContainerMaxSize {
 				vertContainerSize = vertContainerMaxSize
-				let desiredViewHeight = CGFloat(buttonsPerCol)*(vertContainerSize + vertContainerSpacing) + vertContainerSpacing
-				self.buttonAreaHeightConstraint?.constant = desiredViewHeight
 			}
 		}
+		let desiredViewHeight = CGFloat(buttonsPerCol)*(vertContainerSize + vertContainerSpacing) + vertContainerSpacing
+		self.buttonAreaHeightConstraint?.constant = desiredViewHeight
+		if self.buttonAreaHeightConstraint == nil { print("no constraint") }
 
 		// add individual number buttons
 		for i in 0..<nButtons {
@@ -70,18 +70,19 @@ class ButtonViewController: UIViewController {
 				self.numberViews.append(numberView)
 				self.view.addSubview(numberView)
 
-				var x = horzContainerSpacing
-				if i >= buttonsPerCol {
-					x += horzContainerSize + horzContainerSpacing
-				}
 				let y = vertContainerSpacing + CGFloat(i % buttonsPerCol)*(vertContainerSpacing + vertContainerSize)
 				let viewTop = NSLayoutConstraint(item: numberView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1.0, constant: y)
-				let viewLeft = NSLayoutConstraint(item: numberView, attribute: .left, relatedBy: .equal, toItem: self.view, attribute: .left, multiplier: 1.0, constant: x)
 				let viewHeight = NSLayoutConstraint(item: numberView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: vertContainerSize)
 				let viewWidth = NSLayoutConstraint(item: numberView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: horzContainerSize)
-
-				self.view.addConstraints([viewTop, viewLeft])
+				self.view.addConstraint(viewTop)
 				numberView.addConstraints([viewHeight, viewWidth])
+
+				if i < nButtons/2 {
+					self.view.addConstraint(NSLayoutConstraint(item: numberView, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 0.55, constant: 0.0))
+				}
+				else {
+					self.view.addConstraint(NSLayoutConstraint(item: numberView, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.45, constant: 0.0))
+				}
 			}
 		}
 	}
@@ -121,12 +122,13 @@ class ButtonViewController: UIViewController {
 		if RollCountsController.shared.currentNSides() != self.numberViews.count {
 			self.updateLayout()
 		}
-		if let number = note.userInfo?["number"] as? Int,
+		else if let number = note.userInfo?["number"] as? Int,
 			let count = note.userInfo?["count"] as? Int {
 			self.numberViews[number - 1].label?.text = String(format: "%d", count)
 		}
 		else {
-			for v in self.numberViews {
+			for (i,v) in self.numberViews.enumerated() {
+				v.label?.text = String(format: "%d", RollCountsController.shared.rollCounts.countsForNumbers[i + 1]!)
 			}
 		}
 	}

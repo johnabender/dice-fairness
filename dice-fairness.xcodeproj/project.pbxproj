@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		372E5FCD206EB0F900385C65 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E5FCC206EB0F900385C65 /* GraphView.swift */; };
+		3758B9AF207325D6005E3DA2 /* LoadRollsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758B9AE207325D6005E3DA2 /* LoadRollsTableViewController.swift */; };
 		377868E1206EED3D003A32D8 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377868E0206EED3D003A32D8 /* OptionsViewController.swift */; };
 		377868E320718E07003A32D8 /* RollCounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377868E220718E07003A32D8 /* RollCounts.swift */; };
 		377868E520718E2F003A32D8 /* RollCountsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377868E420718E2E003A32D8 /* RollCountsController.swift */; };
@@ -20,10 +21,12 @@
 		378E8CD0206AAAD900CB67D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 378E8CCE206AAAD900CB67D7 /* LaunchScreen.storyboard */; };
 		378E8CD8206AFDAB00CB67D7 /* ButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E8CD7206AFDAB00CB67D7 /* ButtonViewController.swift */; };
 		378E8CDA206AFDB500CB67D7 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E8CD9206AFDB500CB67D7 /* GraphViewController.swift */; };
+		3793F7E52072B83200A083BF /* RandomColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793F7E42072B83200A083BF /* RandomColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		372E5FCC206EB0F900385C65 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		3758B9AE207325D6005E3DA2 /* LoadRollsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadRollsTableViewController.swift; sourceTree = "<group>"; };
 		377868E0206EED3D003A32D8 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		377868E220718E07003A32D8 /* RollCounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollCounts.swift; sourceTree = "<group>"; };
 		377868E420718E2E003A32D8 /* RollCountsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollCountsController.swift; sourceTree = "<group>"; };
@@ -38,6 +41,7 @@
 		378E8CD1206AAAD900CB67D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		378E8CD7206AFDAB00CB67D7 /* ButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewController.swift; sourceTree = "<group>"; };
 		378E8CD9206AFDB500CB67D7 /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
+		3793F7E42072B83200A083BF /* RandomColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +55,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3758B9B020732755005E3DA2 /* options */ = {
+			isa = PBXGroup;
+			children = (
+				377868E0206EED3D003A32D8 /* OptionsViewController.swift */,
+				3758B9AE207325D6005E3DA2 /* LoadRollsTableViewController.swift */,
+			);
+			path = options;
+			sourceTree = "<group>";
+		};
+		377868E620729165003A32D8 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				377868E420718E2E003A32D8 /* RollCountsController.swift */,
+				377868E220718E07003A32D8 /* RollCounts.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		377868E72072917A003A32D8 /* main page views */ = {
+			isa = PBXGroup;
+			children = (
+				378E8CC7206AAAD900CB67D7 /* ViewController.swift */,
+				378E8CD7206AFDAB00CB67D7 /* ButtonViewController.swift */,
+				3779FBC0206DA5A100B86AFA /* NumberView.swift */,
+				378E8CD9206AFDB500CB67D7 /* GraphViewController.swift */,
+				372E5FCC206EB0F900385C65 /* GraphView.swift */,
+				3779FBBA206DA47F00B86AFA /* NumberView.xib */,
+			);
+			path = "main page views";
+			sourceTree = "<group>";
+		};
 		378E8CB9206AAAD900CB67D7 = {
 			isa = PBXGroup;
 			children = (
@@ -70,17 +105,12 @@
 		378E8CC4206AAAD900CB67D7 /* dice-fairness */ = {
 			isa = PBXGroup;
 			children = (
-				378E8CC5206AAAD900CB67D7 /* AppDelegate.swift */,
-				378E8CC7206AAAD900CB67D7 /* ViewController.swift */,
-				378E8CD7206AFDAB00CB67D7 /* ButtonViewController.swift */,
-				378E8CD9206AFDB500CB67D7 /* GraphViewController.swift */,
-				372E5FCC206EB0F900385C65 /* GraphView.swift */,
-				377868E0206EED3D003A32D8 /* OptionsViewController.swift */,
-				377868E420718E2E003A32D8 /* RollCountsController.swift */,
-				377868E220718E07003A32D8 /* RollCounts.swift */,
 				378E8CC9206AAAD900CB67D7 /* Main.storyboard */,
-				3779FBC0206DA5A100B86AFA /* NumberView.swift */,
-				3779FBBA206DA47F00B86AFA /* NumberView.xib */,
+				378E8CC5206AAAD900CB67D7 /* AppDelegate.swift */,
+				377868E620729165003A32D8 /* model */,
+				377868E72072917A003A32D8 /* main page views */,
+				3758B9B020732755005E3DA2 /* options */,
+				3793F7E42072B83200A083BF /* RandomColorExtension.swift */,
 				378E8CCC206AAAD900CB67D7 /* Assets.xcassets */,
 				378E8CCE206AAAD900CB67D7 /* LaunchScreen.storyboard */,
 				378E8CD1206AAAD900CB67D7 /* Info.plist */,
@@ -169,6 +199,8 @@
 				377868E520718E2F003A32D8 /* RollCountsController.swift in Sources */,
 				3779FBC1206DA5A100B86AFA /* NumberView.swift in Sources */,
 				378E8CC6206AAAD900CB67D7 /* AppDelegate.swift in Sources */,
+				3758B9AF207325D6005E3DA2 /* LoadRollsTableViewController.swift in Sources */,
+				3793F7E52072B83200A083BF /* RandomColorExtension.swift in Sources */,
 				372E5FCD206EB0F900385C65 /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,7 +277,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -298,7 +330,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

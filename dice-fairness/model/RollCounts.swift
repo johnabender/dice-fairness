@@ -10,6 +10,7 @@ import UIKit
 
 class RollCounts: NSObject {
 	var countsForNumbers: Dictionary<Int,Int> = [:]
+	var name: String? = nil
 
 	func resetCounts(_ nSides: Int) {
 		self.countsForNumbers = [:]

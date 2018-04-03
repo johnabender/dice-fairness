@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -71,7 +70,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Options" id="6Es-g4-0yg">
                             <connections>
-                                <segue destination="gPG-wL-Kfl" kind="show" id="0xx-KD-IyM"/>
+                                <segue destination="gPG-wL-Kfl" kind="show" id="mpV-nD-bV4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -99,7 +98,7 @@
                                 </constraints>
                                 <state key="normal" title="Load"/>
                                 <connections>
-                                    <action selector="pressedLoad" destination="gPG-wL-Kfl" eventType="touchUpInside" id="Z8e-yf-I6U"/>
+                                    <segue destination="K3e-0X-hVW" kind="show" id="WuG-Td-ltS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FpA-2R-laN">
@@ -193,10 +192,50 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="q7w-cB-7Ce"/>
                     </view>
+                    <connections>
+                        <outlet property="saveButton" destination="buF-a6-q4d" id="QbC-LG-f30"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fT0-Vy-Z1s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="924"/>
+        </scene>
+        <!--Load Rolls Table View Controller-->
+        <scene sceneID="hf6-Zl-XhH">
+            <objects>
+                <tableViewController storyboardIdentifier="LoadRollsTableViewController" id="K3e-0X-hVW" customClass="LoadRollsTableViewController" customModule="dice_fairness" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="H9T-J2-ihM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="savedRollsCell" textLabel="cz3-Lg-OZG" style="IBUITableViewCellStyleDefault" id="hFi-3f-hyX">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hFi-3f-hyX" id="Kbn-xE-35G">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cz3-Lg-OZG">
+                                            <rect key="frame" x="16" y="0.0" width="288" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="K3e-0X-hVW" id="7Sk-tc-nzB"/>
+                            <outlet property="delegate" destination="K3e-0X-hVW" id="JZm-b4-t2e"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tnf-08-8Qp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="975" y="923"/>
         </scene>
         <!--Graph View Controller-->
         <scene sceneID="aNK-W7-iRC">
@@ -205,7 +244,7 @@
                     <view key="view" contentMode="scaleToFill" id="PIM-Zb-b58" customClass="GraphView" customModule="dice_fairness" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="154"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.73700309500000005" blue="0.15685436859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="izq-UJ-Krd"/>
                     </view>
                 </viewController>
