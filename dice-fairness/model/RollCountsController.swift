@@ -32,17 +32,10 @@ class RollCountsController: NSObject {
 	}
 
 	func incrementCountForNumber(_ number: Int, by incrementor: Int) {
-		if var value = self.rollCounts.countsForNumbers[number] {
-			value += incrementor
-			if value < 0 {
-				value = 0
-			}
-			self.rollCounts.countsForNumbers[number] = value
-
-			NotificationCenter.default.post(name: NSNotification.Name(rawValue: "countsUpdated"),
-													  object: self.rollCounts,
-													  userInfo: ["number": number, "count": value])
-		}
+		self.rollCounts.incrementCountForNumber(number, by: incrementor)
+		NotificationCenter.default.post(name: NSNotification.Name(rawValue: "countsUpdated"),
+												  object: self.rollCounts,
+												  userInfo: ["number": number, "count": self.rollCounts.countsForNumbers[number]!])
 	}
 
 	func canSaveCurrentRolls() -> Bool {
@@ -54,15 +47,18 @@ class RollCountsController: NSObject {
 		return false
 	}
 
-	func saveCountsWithTitle(_ title: String) -> Bool {
-		if UserDefaults.standard.dictionaryRepresentation()[savePrefix + title] != nil {
-			return false
-		}
+	func getCurrentDateStamp() -> String {
+		let dateFormatter = ISO8601DateFormatter()
+		dateFormatter.formatOptions = .withFullDate
+		return dateFormatter.string(from: Date.init())
+	}
 
-		self.rollCounts.name = title
+	func saveCountsWithTitle(_ title: String) {
 		let data = NSKeyedArchiver.archivedData(withRootObject: self.rollCounts.countsForNumbers)
-		UserDefaults.standard.set(data, forKey: savePrefix + title)
-		return true
+		let formattedCount = String(format: "%03d", self.rollCounts.countsForNumbers.count)
+		let saveSuffix = "-" + formattedCount + "-" + self.getCurrentDateStamp()
+		UserDefaults.standard.set(data, forKey: savePrefix + title + saveSuffix)
+		self.rollCounts.name = title + saveSuffix
 	}
 
 	func listSavedCounts() -> [String] {
@@ -80,6 +76,7 @@ class RollCountsController: NSObject {
 			let newCounts = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? Dictionary<Int,Int> {
 			self.rollCounts.countsForNumbers = newCounts
 			self.rollCounts.name = title
+			self.rollCounts.recalculateStats()
 			NotificationCenter.default.post(name: NSNotification.Name(rawValue: "countsUpdated"),
 													  object: self.rollCounts)
 		}

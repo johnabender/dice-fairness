@@ -11,6 +11,11 @@ import UIKit
 class OptionsViewController: UIViewController {
 
 	@IBOutlet weak var saveButton: UIButton? = nil
+	@IBOutlet weak var sidesSelector: UISegmentedControl? = nil
+	@IBOutlet weak var histogramTypeSelector: UISegmentedControl? = nil
+	@IBOutlet weak var showFairnessLineSwitch: UISwitch? = nil
+	@IBOutlet weak var showFairnessEnvelopeSwitch: UISwitch? = nil
+	@IBOutlet weak var showBarWhiskersSwitch: UISwitch? = nil
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
@@ -18,23 +23,93 @@ class OptionsViewController: UIViewController {
 		if !RollCountsController.shared.canSaveCurrentRolls() {
 			self.saveButton?.isEnabled = false
 		}
+
+		switch RollCountsController.shared.currentNSides() {
+		case 6:
+			self.sidesSelector?.selectedSegmentIndex = 0
+		case 8:
+			self.sidesSelector?.selectedSegmentIndex = 1
+		case 10:
+			self.sidesSelector?.selectedSegmentIndex = 2
+		case 12:
+			self.sidesSelector?.selectedSegmentIndex = 3
+		case 20:
+			self.sidesSelector?.selectedSegmentIndex = 4
+		default:
+			break
+		}
+
+		switch Options.shared.drawCumulHist {
+		case false:
+			self.histogramTypeSelector?.selectedSegmentIndex = 0
+		case true:
+			self.histogramTypeSelector?.selectedSegmentIndex = 1
+		}
+
+		self.showFairnessLineSwitch?.isOn = Options.shared.drawFairnessLine
+		self.showFairnessEnvelopeSwitch?.isOn = Options.shared.drawFairnessEnvelope
+		self.showBarWhiskersSwitch?.isOn = Options.shared.drawWhiskers
 	}
 
-	@IBAction func chooseDice(sender: UIButton) {
-		if let newSides = Int((sender.accessibilityIdentifier)!) {
-			RollCountsController.shared.resetCountsWithNSides(newSides)
-			self.navigationController?.popViewController(animated: true)
+	@IBAction func chooseDice(sender: UISegmentedControl) {
+		switch sender.selectedSegmentIndex {
+		case 0:
+			RollCountsController.shared.resetCountsWithNSides(6)
+		case 1:
+			RollCountsController.shared.resetCountsWithNSides(8)
+		case 2:
+			RollCountsController.shared.resetCountsWithNSides(10)
+		case 3:
+			RollCountsController.shared.resetCountsWithNSides(12)
+		case 4:
+			RollCountsController.shared.resetCountsWithNSides(20)
+		default:
+			break
 		}
+
+		self.navigationController?.popViewController(animated: true)
+	}
+
+	@IBAction func chooseHistogramType(sender: UISegmentedControl) {
+		switch sender.selectedSegmentIndex {
+		case 0:
+			Options.shared.drawCumulHist = false
+		case 1:
+			Options.shared.drawCumulHist = true
+		default:
+			break
+		}
+
+		Options.shared.save()
+	}
+
+	@IBAction func switchedGraphOption() {
+		if self.showFairnessLineSwitch != nil {
+			Options.shared.drawFairnessLine = self.showFairnessLineSwitch!.isOn
+		}
+		if self.showFairnessEnvelopeSwitch != nil {
+			Options.shared.drawFairnessEnvelope = self.showFairnessEnvelopeSwitch!.isOn
+		}
+		if self.showBarWhiskersSwitch != nil {
+			Options.shared.drawWhiskers = self.showBarWhiskersSwitch!.isOn
+		}
+
+		Options.shared.save()
 	}
 
 	@IBAction func pressedSave() {
 		if !RollCountsController.shared.canSaveCurrentRolls() { return }
 
 		let saveAlert = UIAlertController.init(title: "Save Rolls",
-													  message: "Enter a name for this die.",
-													  preferredStyle: .alert)
+															message: String(format: "Enter a name for this d%d.", RollCountsController.shared.currentNSides()),
+															preferredStyle: .alert)
 		saveAlert.addTextField(configurationHandler: { (textField: UITextField) in
-			textField.text = RollCountsController.shared.rollCounts.name
+			let curName = RollCountsController.shared.rollCounts.name
+			if curName != nil {
+				let suffixLength = RollCountsController.shared.getCurrentDateStamp().count + "-000-".count
+				let nameOnly = (curName! as NSString).substring(to: curName!.count - suffixLength)
+				textField.text = nameOnly
+			}
 		})
 		saveAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
@@ -43,14 +118,7 @@ class OptionsViewController: UIViewController {
 				saveAlert.textFields!.count > 0,
 				let text = saveAlert.textFields![0].text,
 				text != "" {
-
-				if !RollCountsController.shared.saveCountsWithTitle(text) {
-					let failAlert = UIAlertController(title: "Name Exists",
-																 message: "The name you chose already exists. Delete the existing die or choose a new name.",
-																 preferredStyle: .alert)
-					failAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-					self.present(failAlert, animated: true, completion: nil)
-				}
+				RollCountsController.shared.saveCountsWithTitle(text)
 			}
 		}))
 		self.present(saveAlert, animated: true, completion: nil)

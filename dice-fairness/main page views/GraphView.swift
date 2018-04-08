@@ -10,13 +10,18 @@ import UIKit
 
 let barSpacing = CGFloat(2)
 let sideMargins = CGFloat(20)
-let topMargin = CGFloat(20)
+let topMargin = CGFloat(60)
 let bottomMargin = CGFloat(30)
 let labelHeight = CGFloat(20)
+let whiskerDashLength = CGFloat(10)
 
 class GraphView: UIView {
 
 	var rollCounts: RollCounts = RollCounts()
+	let totalLabel: UILabel = UILabel()
+	let statsLabel: UILabel = UILabel()
+	let chiLabel: UILabel = UILabel()
+	var labelsToKeep: [UILabel] = []
 
 	// https://stackoverflow.com/questions/28284063/how-do-i-get-auto-adjusted-font-size-in-ios-7-0-or-later/28285447#28285447
 	func approximateAdjustedFontSizeWithLabel(_ label: UILabel) -> CGFloat {
@@ -36,6 +41,8 @@ class GraphView: UIView {
 		if n == self.subviews.count { return }
 		self.subviews.forEach { $0.removeFromSuperview() }
 
+		self.labelsToKeep = [self.totalLabel, self.statsLabel, self.chiLabel]
+
 		// build out from center
 		var prevLabel: UILabel? = nil
 		for i in 0..<n {
@@ -45,11 +52,11 @@ class GraphView: UIView {
 			label.minimumScaleFactor = 0.5
 			label.text = String(format: "%d", i + 1)
 			label.textAlignment = .center
-			label.textColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+			label.textColor = .white
 			self.addSubview(label)
 
 			label.addConstraint(NSLayoutConstraint(item: label, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: labelHeight))
-			self.addConstraint(NSLayoutConstraint(item: label, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -bottomMargin + labelHeight))
+			self.addConstraint(NSLayoutConstraint(item: label, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0.0))
 			if i == 0 {
 				self.addConstraint(NSLayoutConstraint(item: label, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: sideMargins))
 			}
@@ -64,22 +71,70 @@ class GraphView: UIView {
 			prevLabel = label
 		}
 
-		// choose minimum constant font size
+		self.totalLabel.translatesAutoresizingMaskIntoConstraints = false
+		self.totalLabel.textAlignment = .left
+		self.totalLabel.textColor = .white
+		self.addSubview(self.totalLabel)
+		self.totalLabel.addConstraint(NSLayoutConstraint(item: self.totalLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: labelHeight))
+		self.addConstraints([NSLayoutConstraint(item: self.totalLabel, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: sideMargins),
+									NSLayoutConstraint(item: self.totalLabel, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0)])
+
+		self.statsLabel.translatesAutoresizingMaskIntoConstraints = false
+		self.statsLabel.textAlignment = .right
+		self.addSubview(self.statsLabel)
+		self.statsLabel.addConstraint(NSLayoutConstraint(item: self.statsLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: labelHeight))
+		self.addConstraints([NSLayoutConstraint(item: self.statsLabel, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: -sideMargins),
+									NSLayoutConstraint(item: self.statsLabel, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0),
+									NSLayoutConstraint(item: self.statsLabel, attribute: .left, relatedBy: .equal, toItem: self.totalLabel, attribute: .right, multiplier: 1.0, constant: 0.0)])
+
+		self.chiLabel.translatesAutoresizingMaskIntoConstraints = false
+		self.chiLabel.textAlignment = .right
+		self.addSubview(self.chiLabel)
+		self.chiLabel.addConstraint(NSLayoutConstraint(item: self.chiLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: labelHeight))
+		self.addConstraints([NSLayoutConstraint(item: self.chiLabel, attribute: .right, relatedBy: .equal, toItem: self.statsLabel, attribute: .right, multiplier: 1.0, constant: 0.0),
+									NSLayoutConstraint(item: self.chiLabel, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0.0),
+									NSLayoutConstraint(item: self.chiLabel, attribute: .top, relatedBy: .equal, toItem: self.statsLabel, attribute: .bottom, multiplier: 1.0, constant: 0.0)])
+
 		DispatchQueue.main.async {
-			var minFontSize = CGFloat(100)
-			for v in self.subviews {
-				if let label = v as? UILabel {
-					let curFontSize = self.approximateAdjustedFontSizeWithLabel(label)
-					if curFontSize < minFontSize {
-						minFontSize = curFontSize
-					}
+			self.fixBarLabelFontSize()
+		}
+	}
+
+	func fixBarLabelFontSize() {
+		// not sure if this is needed anymore, but it seems prudent
+		if self.frame.size.width == 0.0 {
+			DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1, execute: {
+				self.fixBarLabelFontSize()
+			})
+			return
+		}
+
+		var minFontSize = CGFloat(100)
+		for v in self.subviews {
+			if let label = v as? UILabel, !self.labelsToKeep.contains(label) {
+				let curFontSize = self.approximateAdjustedFontSizeWithLabel(label)
+				if curFontSize < minFontSize {
+					minFontSize = curFontSize
 				}
 			}
-			for v in self.subviews {
-				if let label = v as? UILabel {
-					label.font = label.font.withSize(minFontSize)
-				}
+		}
+		for v in self.subviews {
+			if let label = v as? UILabel, !self.labelsToKeep.contains(label) {
+				label.font = label.font.withSize(minFontSize)
 			}
+		}
+	}
+
+	func leftEdgeForBar(index: Int, barWidth: CGFloat) -> CGFloat {
+		return sideMargins + CGFloat(index)*(barWidth + barSpacing)
+	}
+
+	func heightForBar(number: Int, usableHeight: CGFloat) -> CGFloat {
+		if Options.shared.drawCumulHist {
+			return CGFloat(self.rollCounts.cumulHist[number]!)*usableHeight/CGFloat(RollCountsController.shared.rollCounts.maxCumulCount)
+		}
+		else {
+			return CGFloat(self.rollCounts.countsForNumbers[number]!)*usableHeight/CGFloat(RollCountsController.shared.rollCounts.maxCount)
 		}
 	}
 
@@ -87,29 +142,172 @@ class GraphView: UIView {
 		let nBars = self.rollCounts.countsForNumbers.count
 		if nBars == 0 { return }
 
-		if nBars != self.subviews.count {
+		if self.subviews.count - self.labelsToKeep.count != nBars {
 			DispatchQueue.main.async {
 				self.setupLabels(nBars)
 			}
 		}
 
-		var maxCount = 0
-		for i in 1...nBars {
-			if self.rollCounts.countsForNumbers[i]! > maxCount {
-				maxCount = self.rollCounts.countsForNumbers[i]!
+		let totalCount = RollCountsController.shared.rollCounts.totalCount
+		var maxCount = RollCountsController.shared.rollCounts.maxCount
+		if Options.shared.drawCumulHist {
+			maxCount = RollCountsController.shared.rollCounts.maxCumulCount
+		}
+
+		// total count in label
+		var s = "s"
+		if totalCount == 1 { s = "" }
+		self.totalLabel.text = String(format: "%d roll%@", totalCount, s)
+
+		// stats in label
+		var conf = "low"
+		var confColor = UIColor.red
+		if totalCount >= 5*nBars {
+			conf = "moderate"
+			confColor = .yellow
+		}
+		if totalCount >= 20*nBars {
+			conf = "high"
+			confColor = .green
+		}
+		self.statsLabel.text = String(format: "statistical power: %@", conf)
+		self.statsLabel.textColor = confColor
+
+		// chi-squared or K-S value in label
+		if Options.shared.drawCumulHist {
+			var sig = "not significantly biased"
+			if RollCountsController.shared.rollCounts.isKSSignificant99() {
+				self.chiLabel.textColor = .red
+				sig = "significantly biased"
+			}
+			else if RollCountsController.shared.rollCounts.isKSSignificant95() {
+				self.chiLabel.textColor = .yellow
+				sig = "marginally significant bias"
+			}
+			else {
+				self.chiLabel.textColor = .green
+			}
+			if totalCount >= 35 {
+				self.chiLabel.text = String(format: "D: %.3f (%@)", RollCountsController.shared.rollCounts.ks, sig)
+			}
+			else {
+				self.chiLabel.text = ""
+			}
+		}
+		else {
+			var sig = "not significantly biased"
+			if RollCountsController.shared.rollCounts.isChiSqSignificant99() {
+				self.chiLabel.textColor = .red
+				sig = "significantly biased"
+			}
+			else if RollCountsController.shared.rollCounts.isChiSqSignificant95() {
+				self.chiLabel.textColor = .yellow
+				sig = "marginally significant bias"
+			}
+			else {
+				self.chiLabel.textColor = .green
+			}
+			if totalCount >= nBars {
+				self.chiLabel.text = String(format: "𝜒²: %.2f (%@)", RollCountsController.shared.rollCounts.chisq, sig)
+			}
+			else {
+				self.chiLabel.text = ""
 			}
 		}
 
 		let barWidth = (self.frame.size.width - 2.0*sideMargins - CGFloat(nBars - 1)*barSpacing)/CGFloat(nBars)
-		let context = UIGraphicsGetCurrentContext()
-		context?.setFillColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-//		context?.setStrokeColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+		let usableHeight = self.frame.size.height - topMargin - bottomMargin
 
+		let context = UIGraphicsGetCurrentContext()
+
+		if Options.shared.drawFairnessEnvelope && totalCount >= nBars {
+			// draw "fairness envelope"
+			let topY = max(usableHeight*(CGFloat(RollCountsController.shared.rollCounts.expectedValue) - CGFloat(2.0*RollCountsController.shared.rollCounts.expectedStdev))/CGFloat(maxCount),
+								0.0)
+			let bottomY = min(usableHeight*(CGFloat(RollCountsController.shared.rollCounts.expectedValue) + CGFloat(2.0*RollCountsController.shared.rollCounts.expectedStdev))/CGFloat(maxCount),
+									usableHeight)
+			let leftX = sideMargins/2.0
+			let rightX = self.frame.size.width - sideMargins/2.0
+			context?.setFillColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3)
+			UIRectFill(CGRect(x: leftX, y: topMargin + usableHeight - bottomY, width: rightX - leftX, height: bottomY - topY))
+		}
+
+		// draw each bar
+		context?.setFillColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 		for i in 1...nBars {
-			let x = sideMargins + CGFloat(i - 1)*(barWidth + barSpacing)
-			let height = CGFloat(self.rollCounts.countsForNumbers[i]!)*(self.frame.size.height - topMargin - bottomMargin)/CGFloat(maxCount)
-			let whitespace = self.frame.size.height - topMargin - bottomMargin - height
+			let x = self.leftEdgeForBar(index: i - 1, barWidth: barWidth)
+			let height = self.heightForBar(number: i, usableHeight: usableHeight)
+			let whitespace = usableHeight - height
 			UIRectFill(CGRect(x: x, y: topMargin + whitespace, width: barWidth, height: height))
+		}
+
+		if Options.shared.drawFairnessLine && totalCount > 0 {
+			// draw dashed "fairness line"
+			let fairPath = UIBezierPath()
+			fairPath.setLineDash([5.0, 3.0], count: 2, phase: 0.0)
+			if Options.shared.drawCumulHist {
+				fairPath.move(to: CGPoint(x: self.leftEdgeForBar(index: 0, barWidth: barWidth), y: topMargin))
+				for i in 1...nBars {
+					let fairHeight = usableHeight*(CGFloat(maxCount)*CGFloat(nBars - i + 1)/CGFloat(nBars))/CGFloat(maxCount)
+					if i > 1 {
+						fairPath.addLine(to: CGPoint(x: self.leftEdgeForBar(index: i - 1, barWidth: barWidth) - barSpacing/2.0,
+															  y: topMargin + usableHeight - fairHeight))
+					}
+					fairPath.addLine(to: CGPoint(x: self.leftEdgeForBar(index: i - 1, barWidth: barWidth) + barWidth + barSpacing/2.0,
+														  y: topMargin + usableHeight - fairHeight))
+				}
+			}
+			else {
+				let fairHeight = usableHeight*CGFloat(totalCount)/CGFloat(nBars)/CGFloat(maxCount)
+				fairPath.move(to: CGPoint(x: sideMargins/2.0, y: topMargin + usableHeight - fairHeight))
+				fairPath.addLine(to: CGPoint(x: self.frame.size.width - sideMargins/2.0,
+													  y: topMargin + usableHeight - fairHeight))
+			}
+			context?.setStrokeColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0)
+			fairPath.stroke()
+		}
+
+		if Options.shared.drawWhiskers && totalCount >= nBars {
+			// draw whiskers at 2 sigma
+			let whiskerPath = UIBezierPath()
+			let whiskerDashPath = UIBezierPath()
+			let whiskerWidth = barWidth/4.0
+			for i in 1...nBars {
+				let x = self.leftEdgeForBar(index: i - 1, barWidth: barWidth) + barWidth/2.0
+				let height = self.heightForBar(number: i, usableHeight: usableHeight)
+				let whitespace = usableHeight - height
+				let whiskerHeight = usableHeight*CGFloat(2.0*RollCountsController.shared.rollCounts.stdev)/CGFloat(maxCount)
+
+				var topY = topMargin + whitespace - whiskerHeight
+				if topY < topMargin {
+					topY = topMargin
+					whiskerDashPath.move(to: CGPoint(x: x, y: topY))
+					whiskerDashPath.addLine(to: CGPoint(x: x, y: topY - whiskerDashLength))
+				}
+				else {
+					whiskerPath.move(to: CGPoint(x: x - whiskerWidth/2.0, y: topY))
+					whiskerPath.addLine(to: CGPoint(x: x + whiskerWidth/2.0, y: topY))
+				}
+				whiskerPath.move(to: CGPoint(x: x, y: topY))
+
+				var addBottomCross = true
+				var bottomY = topMargin + whitespace + whiskerHeight
+				if bottomY > topMargin + usableHeight {
+					bottomY = topMargin + usableHeight
+					whiskerDashPath.move(to: CGPoint(x: x, y: bottomY))
+					whiskerDashPath.addLine(to: CGPoint(x: x, y: bottomY + whiskerDashLength))
+					addBottomCross = false
+				}
+				whiskerPath.addLine(to: CGPoint(x: x, y: bottomY))
+				if addBottomCross {
+					whiskerPath.move(to: CGPoint(x: x - whiskerWidth/2.0, y: bottomY))
+					whiskerPath.addLine(to: CGPoint(x: x + whiskerWidth/2.0, y: bottomY))
+				}
+			}
+			context?.setStrokeColor(red: 1.0, green: 0.2, blue: 0.2, alpha: 1.0)
+			whiskerPath.stroke()
+			whiskerDashPath.setLineDash([2.0, 2.0], count: 2, phase: 0.0)
+			whiskerDashPath.stroke()
 		}
 	}
 }

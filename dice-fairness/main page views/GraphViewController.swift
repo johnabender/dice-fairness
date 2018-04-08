@@ -22,6 +22,8 @@ class GraphViewController: UIViewController {
 		if let view = self.view as? GraphView {
 			view.setupLabels(RollCountsController.shared.currentNSides())
 		}
+
+		self.view.setNeedsDisplay()
 	}
 
 	@objc func countsUpdated(note: Notification) {

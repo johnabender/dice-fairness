@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		372E5FCD206EB0F900385C65 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E5FCC206EB0F900385C65 /* GraphView.swift */; };
 		3758B9AF207325D6005E3DA2 /* LoadRollsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758B9AE207325D6005E3DA2 /* LoadRollsTableViewController.swift */; };
+		3758B9B22073FC19005E3DA2 /* StatsTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758B9B12073FC19005E3DA2 /* StatsTutorialViewController.swift */; };
 		377868E1206EED3D003A32D8 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377868E0206EED3D003A32D8 /* OptionsViewController.swift */; };
 		377868E320718E07003A32D8 /* RollCounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377868E220718E07003A32D8 /* RollCounts.swift */; };
 		377868E520718E2F003A32D8 /* RollCountsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377868E420718E2E003A32D8 /* RollCountsController.swift */; };
@@ -22,11 +23,13 @@
 		378E8CD8206AFDAB00CB67D7 /* ButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E8CD7206AFDAB00CB67D7 /* ButtonViewController.swift */; };
 		378E8CDA206AFDB500CB67D7 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E8CD9206AFDB500CB67D7 /* GraphViewController.swift */; };
 		3793F7E52072B83200A083BF /* RandomColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793F7E42072B83200A083BF /* RandomColorExtension.swift */; };
+		37C86D9520781D54004F66FE /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C86D9420781D54004F66FE /* Options.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		372E5FCC206EB0F900385C65 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		3758B9AE207325D6005E3DA2 /* LoadRollsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadRollsTableViewController.swift; sourceTree = "<group>"; };
+		3758B9B12073FC19005E3DA2 /* StatsTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTutorialViewController.swift; sourceTree = "<group>"; };
 		377868E0206EED3D003A32D8 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		377868E220718E07003A32D8 /* RollCounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollCounts.swift; sourceTree = "<group>"; };
 		377868E420718E2E003A32D8 /* RollCountsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollCountsController.swift; sourceTree = "<group>"; };
@@ -42,6 +45,7 @@
 		378E8CD7206AFDAB00CB67D7 /* ButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewController.swift; sourceTree = "<group>"; };
 		378E8CD9206AFDB500CB67D7 /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		3793F7E42072B83200A083BF /* RandomColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColorExtension.swift; sourceTree = "<group>"; };
+		37C86D9420781D54004F66FE /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +63,9 @@
 			isa = PBXGroup;
 			children = (
 				377868E0206EED3D003A32D8 /* OptionsViewController.swift */,
+				37C86D9420781D54004F66FE /* Options.swift */,
 				3758B9AE207325D6005E3DA2 /* LoadRollsTableViewController.swift */,
+				3758B9B12073FC19005E3DA2 /* StatsTutorialViewController.swift */,
 			);
 			path = options;
 			sourceTree = "<group>";
@@ -193,6 +199,7 @@
 			files = (
 				377868E320718E07003A32D8 /* RollCounts.swift in Sources */,
 				378E8CC8206AAAD900CB67D7 /* ViewController.swift in Sources */,
+				37C86D9520781D54004F66FE /* Options.swift in Sources */,
 				378E8CDA206AFDB500CB67D7 /* GraphViewController.swift in Sources */,
 				378E8CD8206AFDAB00CB67D7 /* ButtonViewController.swift in Sources */,
 				377868E1206EED3D003A32D8 /* OptionsViewController.swift in Sources */,
@@ -201,6 +208,7 @@
 				378E8CC6206AAAD900CB67D7 /* AppDelegate.swift in Sources */,
 				3758B9AF207325D6005E3DA2 /* LoadRollsTableViewController.swift in Sources */,
 				3793F7E52072B83200A083BF /* RandomColorExtension.swift in Sources */,
+				3758B9B22073FC19005E3DA2 /* StatsTutorialViewController.swift in Sources */,
 				372E5FCD206EB0F900385C65 /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

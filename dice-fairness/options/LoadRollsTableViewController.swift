@@ -17,7 +17,7 @@ class LoadRollsTableViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		self.savedRolls = RollCountsController.shared.listSavedCounts()
+		self.savedRolls = RollCountsController.shared.listSavedCounts().sorted()
 		return self.savedRolls.count
 	}
 
@@ -25,7 +25,36 @@ class LoadRollsTableViewController: UITableViewController {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "savedRollsCell", for: indexPath)
 
 		if indexPath.row < self.savedRolls.count {
-			cell.textLabel?.text = self.savedRolls[indexPath.row]
+			let dateParser = ISO8601DateFormatter()
+			dateParser.formatOptions = .withFullDate
+			dateParser.timeZone = TimeZone.current
+			let breakpoint2 = dateParser.string(from: Date.init()).count // counted from tail
+			let breakpoint1 = breakpoint2 + "-000".count // counted from tail
+
+			let nameAndDate = self.savedRolls[indexPath.row]
+			let name = (nameAndDate as NSString).substring(to: nameAndDate.count - breakpoint1 - 1)
+			cell.textLabel?.text = name
+
+			let sidesString = (nameAndDate as NSString).substring(with: NSRange.init(location: nameAndDate.count - breakpoint1, length: breakpoint1 - breakpoint2 - 1))
+			let sides = Int(sidesString)
+			var sidesText = ""
+			if sides != nil {
+				sidesText = String(format: "d%d, ", sides!)
+			}
+
+			let dateString = (nameAndDate as NSString).substring(from: nameAndDate.count - breakpoint2)
+			let date = dateParser.date(from: dateString)
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateStyle = .short
+			var dateText = ""
+			if date == nil {
+				dateText = String(format: "saved %@", dateString)
+			}
+			else {
+				dateText = String(format: "saved %@", dateFormatter.string(from: date!))
+			}
+
+			cell.detailTextLabel?.text = sidesText + dateText
 		}
 		else {
 			cell.textLabel?.text = "---"

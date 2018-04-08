@@ -18,6 +18,10 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 
 		RollCountsController.shared.resetCountsWithNSides(initialNSides)
+		RollCountsController.shared.loadCountsWithTitle("asee-008-2018-04-04") //////////////////
+//		RollCountsController.shared.loadCountsWithTitle("jkl-020-2018-04-04") //////////////////
+
+		Options.shared.load()
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
