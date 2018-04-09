@@ -244,7 +244,6 @@ class GraphView: UIView {
 		if Options.shared.drawFairnessLine && totalCount > 0 {
 			// draw dashed "fairness line"
 			let fairPath = UIBezierPath()
-			fairPath.setLineDash([5.0, 3.0], count: 2, phase: 0.0)
 			if Options.shared.drawCumulHist {
 				fairPath.move(to: CGPoint(x: self.leftEdgeForBar(index: 0, barWidth: barWidth), y: topMargin))
 				for i in 1...nBars {
@@ -255,6 +254,10 @@ class GraphView: UIView {
 					}
 					fairPath.addLine(to: CGPoint(x: self.leftEdgeForBar(index: i - 1, barWidth: barWidth) + barWidth + barSpacing/2.0,
 														  y: topMargin + usableHeight - fairHeight))
+
+					fairPath.setLineDash([2.0, 2.0], count: 2, phase: 0.0)
+					fairPath.lineWidth = 2.0
+					context?.setStrokeColor(red: 0.6, green: 1.0, blue: 0.6, alpha: 1.0)
 				}
 			}
 			else {
@@ -262,8 +265,10 @@ class GraphView: UIView {
 				fairPath.move(to: CGPoint(x: sideMargins/2.0, y: topMargin + usableHeight - fairHeight))
 				fairPath.addLine(to: CGPoint(x: self.frame.size.width - sideMargins/2.0,
 													  y: topMargin + usableHeight - fairHeight))
+
+				fairPath.setLineDash([5.0, 3.0], count: 2, phase: 0.0)
+				context?.setStrokeColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0)
 			}
-			context?.setStrokeColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0)
 			fairPath.stroke()
 		}
 

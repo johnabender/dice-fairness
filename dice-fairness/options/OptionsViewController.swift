@@ -84,6 +84,7 @@ class OptionsViewController: UIViewController {
 		}
 
 		Options.shared.save()
+		self.navigationController?.popViewController(animated: true)
 	}
 
 	@IBAction func switchedGraphOption() {

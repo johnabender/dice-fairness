@@ -60,7 +60,12 @@ class ButtonViewController: UIViewController {
 		for i in 0..<nButtons {
 			if let nibViews = Bundle.main.loadNibNamed("NumberView", owner: self, options: nil), nibViews.count > 0, let numberView = nibViews[0] as? NumberView {
 				numberView.translatesAutoresizingMaskIntoConstraints = false
-				numberView.button?.setTitle(String(format: "%d", i + 1), for: .normal)
+				if nButtons == 10 && i == 9 {
+					numberView.button?.setTitle("0/10", for: .normal)
+				}
+				else {
+					numberView.button?.setTitle(String(format: "%d", i + 1), for: .normal)
+				}
 				numberView.button?.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
 				if (numberView.button?.gestureRecognizers?.count)! > 0 {
 					numberView.button!.gestureRecognizers![0].addTarget(self, action: #selector(buttonLongPressed))
