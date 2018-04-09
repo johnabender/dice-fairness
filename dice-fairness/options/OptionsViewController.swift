@@ -16,6 +16,7 @@ class OptionsViewController: UIViewController {
 	@IBOutlet weak var showFairnessLineSwitch: UISwitch? = nil
 	@IBOutlet weak var showFairnessEnvelopeSwitch: UISwitch? = nil
 	@IBOutlet weak var showBarWhiskersSwitch: UISwitch? = nil
+	@IBOutlet weak var versionLabel: UILabel? = nil
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
@@ -49,6 +50,8 @@ class OptionsViewController: UIViewController {
 		self.showFairnessLineSwitch?.isOn = Options.shared.drawFairnessLine
 		self.showFairnessEnvelopeSwitch?.isOn = Options.shared.drawFairnessEnvelope
 		self.showBarWhiskersSwitch?.isOn = Options.shared.drawWhiskers
+
+		self.versionLabel?.text = String(format: "v%@ (%@)", Bundle.main.releaseVersionNumber!, Bundle.main.buildVersionNumber!)
 	}
 
 	@IBAction func chooseDice(sender: UISegmentedControl) {

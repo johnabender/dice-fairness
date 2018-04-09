@@ -20,8 +20,21 @@ let chiTable95 = [4: 7.815,
 						10: 16.919,
 						12: 19.675,
 						20: 30.144] // 95th percentile
-let ksNumerator95 = 1.358 // 95th percentile constant for Kolmogorov-Smirnov test, for n>35
-let ksNumerator99 = 1.628 // 99th percentile
+let ksTable99 = [4: 0.0000422803, // 99th percentile score of Kolmogorov-Smirnov values
+					  6: 0.000446334,  // from Monte Carlo simulation 4/8/18 with N=1e4, n=1e7
+					  8: 0.000444602,
+					  10: 0.000449304,
+					  12: 0.000465234,
+					  20: 0.000470716]
+let ksTable95 = [4: 0.0003435,
+					  6: 0.000357615,
+					  8: 0.0003659,
+					  10: 0.000370205,
+					  12: 0.000377735,
+					  20: 0.000388505] // 95th percentile
+let ks_n = 1e7
+//let ksNumerator99 = 1.628 // 99th percentile constant for Kolmogorov-Smirnov test, for n>35
+//let ksNumerator95 = 1.358 // 95th percentile
 
 class RollCounts: NSObject {
 	var countsForNumbers: Dictionary<Int,Int> = [:]
@@ -130,7 +143,9 @@ class RollCounts: NSObject {
 		if self.totalCount < 36 {
 			return false
 		}
-		if self.ks >= ksNumerator95/sqrt(Double(self.totalCount)) {
+//		if self.ks >= ksNumerator95/sqrt(Double(self.totalCount)) {
+		if let benchmark = ksTable95[self.countsForNumbers.count],
+			self.ks >= benchmark*sqrt(ks_n)/sqrt(Double(self.totalCount)) {
 			return true
 		}
 		return false
@@ -140,7 +155,9 @@ class RollCounts: NSObject {
 		if self.totalCount < 36 {
 			return false
 		}
-		if self.ks >= ksNumerator99/sqrt(Double(self.totalCount)) {
+//		if self.ks >= ksNumerator99/sqrt(Double(self.totalCount)) {
+		if let benchmark = ksTable99[self.countsForNumbers.count],
+			self.ks >= benchmark*sqrt(ks_n)/sqrt(Double(self.totalCount)) {
 			return true
 		}
 		return false

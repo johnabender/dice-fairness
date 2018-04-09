@@ -46,3 +46,13 @@ public extension UIColor {
 		return UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1.0)
 	}
 }
+
+
+public extension Bundle {
+	var releaseVersionNumber: String? {
+		return infoDictionary?["CFBundleShortVersionString"] as? String
+	}
+	var buildVersionNumber: String? {
+		return infoDictionary?["CFBundleVersion"] as? String
+	}
+}

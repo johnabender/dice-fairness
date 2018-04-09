@@ -24,6 +24,7 @@
 		378E8CDA206AFDB500CB67D7 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E8CD9206AFDB500CB67D7 /* GraphViewController.swift */; };
 		3793F7E52072B83200A083BF /* RandomColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793F7E42072B83200A083BF /* RandomColorExtension.swift */; };
 		37C86D9520781D54004F66FE /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C86D9420781D54004F66FE /* Options.swift */; };
+		37C86D97207ACC08004F66FE /* RecentRollsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C86D96207ACC08004F66FE /* RecentRollsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		378E8CD9206AFDB500CB67D7 /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		3793F7E42072B83200A083BF /* RandomColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColorExtension.swift; sourceTree = "<group>"; };
 		37C86D9420781D54004F66FE /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
+		37C86D96207ACC08004F66FE /* RecentRollsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRollsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 			children = (
 				378E8CC7206AAAD900CB67D7 /* ViewController.swift */,
 				378E8CD7206AFDAB00CB67D7 /* ButtonViewController.swift */,
+				37C86D96207ACC08004F66FE /* RecentRollsViewController.swift */,
 				3779FBC0206DA5A100B86AFA /* NumberView.swift */,
 				378E8CD9206AFDB500CB67D7 /* GraphViewController.swift */,
 				372E5FCC206EB0F900385C65 /* GraphView.swift */,
@@ -207,6 +210,7 @@
 				3779FBC1206DA5A100B86AFA /* NumberView.swift in Sources */,
 				378E8CC6206AAAD900CB67D7 /* AppDelegate.swift in Sources */,
 				3758B9AF207325D6005E3DA2 /* LoadRollsTableViewController.swift in Sources */,
+				37C86D97207ACC08004F66FE /* RecentRollsViewController.swift in Sources */,
 				3793F7E52072B83200A083BF /* RandomColorExtension.swift in Sources */,
 				3758B9B22073FC19005E3DA2 /* StatsTutorialViewController.swift in Sources */,
 				372E5FCD206EB0F900385C65 /* GraphView.swift in Sources */,
