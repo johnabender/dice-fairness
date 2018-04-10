@@ -23,7 +23,7 @@ class GraphView: UIView {
 	let chiLabel: UILabel = UILabel()
 	var labelsToKeep: [UILabel] = []
 
-	// https://stackoverflow.com/questions/28284063/how-do-i-get-auto-adjusted-font-size-in-ios-7-0-or-later/28285447#28285447
+	// https://stackoverflow.com/questions/28284063/28285447#28285447
 	func approximateAdjustedFontSizeWithLabel(_ label: UILabel) -> CGFloat {
 		var currentFont: UIFont = label.font
 		let originalFontSize = currentFont.pointSize
@@ -130,12 +130,13 @@ class GraphView: UIView {
 	}
 
 	func heightForBar(number: Int, usableHeight: CGFloat) -> CGFloat {
-		if Options.shared.drawCumulHist {
-			return CGFloat(self.rollCounts.cumulHist[number]!)*usableHeight/CGFloat(RollCountsController.shared.rollCounts.maxCumulCount)
+		if Options.shared.drawCumulHist && self.rollCounts.cumulHist[1]! > 0 {
+			return CGFloat(self.rollCounts.cumulHist[number]!)*usableHeight/CGFloat(self.rollCounts.cumulHist[1]!)
 		}
-		else {
+		else if !Options.shared.drawCumulHist && RollCountsController.shared.rollCounts.maxCount > 0 {
 			return CGFloat(self.rollCounts.countsForNumbers[number]!)*usableHeight/CGFloat(RollCountsController.shared.rollCounts.maxCount)
 		}
+		return CGFloat(0)
 	}
 
 	override func draw(_ rect: CGRect) {
@@ -151,7 +152,7 @@ class GraphView: UIView {
 		let totalCount = RollCountsController.shared.rollCounts.totalCount
 		var maxCount = RollCountsController.shared.rollCounts.maxCount
 		if Options.shared.drawCumulHist {
-			maxCount = RollCountsController.shared.rollCounts.maxCumulCount
+			maxCount = self.rollCounts.cumulHist[1]!
 		}
 
 		// total count in label
@@ -222,14 +223,26 @@ class GraphView: UIView {
 
 		if Options.shared.drawFairnessEnvelope && totalCount >= nBars {
 			// draw "fairness envelope"
-			let topY = max(usableHeight*(CGFloat(RollCountsController.shared.rollCounts.expectedValue) - CGFloat(2.0*RollCountsController.shared.rollCounts.expectedStdev))/CGFloat(maxCount),
-								0.0)
-			let bottomY = min(usableHeight*(CGFloat(RollCountsController.shared.rollCounts.expectedValue) + CGFloat(2.0*RollCountsController.shared.rollCounts.expectedStdev))/CGFloat(maxCount),
-									usableHeight)
-			let leftX = sideMargins/2.0
-			let rightX = self.frame.size.width - sideMargins/2.0
 			context?.setFillColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3)
-			UIRectFill(CGRect(x: leftX, y: topMargin + usableHeight - bottomY, width: rightX - leftX, height: bottomY - topY))
+			if Options.shared.drawCumulHist {
+				for i in 2...nBars {
+					let fairHeight = usableHeight*CGFloat(self.rollCounts.cumulExpectedValue[i]!)/CGFloat(maxCount)
+					let envelopeHeight = usableHeight*CGFloat(2.0*self.rollCounts.cumulExpectedStdev[i]!)/CGFloat(maxCount)
+					let bottomY = max(fairHeight - envelopeHeight, 0.0)
+					let topY = min(fairHeight + envelopeHeight, usableHeight + whiskerDashLength)
+					let leftX = self.leftEdgeForBar(index: i - 1, barWidth: barWidth) - barSpacing/2.0
+					UIRectFill(CGRect(x: leftX, y: topMargin + usableHeight - topY, width: barWidth + barSpacing, height: topY - bottomY))
+				}
+			}
+			else {
+				let bottomY = max(usableHeight*(CGFloat(RollCountsController.shared.rollCounts.expectedValue) - CGFloat(2.0*RollCountsController.shared.rollCounts.expectedStdev))/CGFloat(maxCount),
+										0.0)
+				let topY = min(usableHeight*(CGFloat(RollCountsController.shared.rollCounts.expectedValue) + CGFloat(2.0*RollCountsController.shared.rollCounts.expectedStdev))/CGFloat(maxCount),
+									usableHeight + whiskerDashLength)
+				let leftX = sideMargins/2.0
+				let rightX = self.frame.size.width - sideMargins/2.0
+				UIRectFill(CGRect(x: leftX, y: topMargin + usableHeight - topY, width: rightX - leftX, height: topY - bottomY))
+			}
 		}
 
 		// draw each bar
@@ -247,7 +260,7 @@ class GraphView: UIView {
 			if Options.shared.drawCumulHist {
 				fairPath.move(to: CGPoint(x: self.leftEdgeForBar(index: 0, barWidth: barWidth), y: topMargin))
 				for i in 1...nBars {
-					let fairHeight = usableHeight*(CGFloat(maxCount)*CGFloat(nBars - i + 1)/CGFloat(nBars))/CGFloat(maxCount)
+					let fairHeight = usableHeight*CGFloat(self.rollCounts.cumulExpectedValue[i]!)/CGFloat(maxCount)
 					if i > 1 {
 						fairPath.addLine(to: CGPoint(x: self.leftEdgeForBar(index: i - 1, barWidth: barWidth) - barSpacing/2.0,
 															  y: topMargin + usableHeight - fairHeight))
@@ -257,7 +270,7 @@ class GraphView: UIView {
 
 					fairPath.setLineDash([2.0, 2.0], count: 2, phase: 0.0)
 					fairPath.lineWidth = 2.0
-					context?.setStrokeColor(red: 0.6, green: 1.0, blue: 0.6, alpha: 1.0)
+					context?.setStrokeColor(red: 0.0, green: 0.8, blue: 0.0, alpha: 1.0)
 				}
 			}
 			else {
@@ -268,6 +281,7 @@ class GraphView: UIView {
 
 				fairPath.setLineDash([5.0, 3.0], count: 2, phase: 0.0)
 				context?.setStrokeColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0)
+				context?.setStrokeColor(red: 0.0, green: 0.8, blue: 0.0, alpha: 1.0)
 			}
 			fairPath.stroke()
 		}

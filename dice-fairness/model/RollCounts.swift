@@ -33,8 +33,6 @@ let ksTable95 = [4: 0.0003435,
 					  12: 0.000377735,
 					  20: 0.000388505] // 95th percentile
 let ks_n = 1e7
-//let ksNumerator99 = 1.628 // 99th percentile constant for Kolmogorov-Smirnov test, for n>35
-//let ksNumerator95 = 1.358 // 95th percentile
 
 class RollCounts: NSObject {
 	var countsForNumbers: Dictionary<Int,Int> = [:]
@@ -50,7 +48,8 @@ class RollCounts: NSObject {
 	var expectedStdev = 0.0
 
 	var cumulHist: Dictionary<Int,Int> = [:]
-	var maxCumulCount = 0
+	var cumulExpectedValue: Dictionary<Int,Double> = [:]
+	var cumulExpectedStdev: Dictionary<Int,Double> = [:]
 
 	var ks = 0.0
 
@@ -75,52 +74,61 @@ class RollCounts: NSObject {
 	}
 
 	func recalculateStats() {
+		let k = Double(self.countsForNumbers.count) // number of sides on the die
+
 		self.totalCount = 0
 		self.maxCount = 0
-		self.maxCumulCount = 0
-		for i in (1...self.countsForNumbers.count).reversed() {
-			self.totalCount += self.countsForNumbers[i]!
-			if self.countsForNumbers[i]! > self.maxCount {
-				self.maxCount = self.countsForNumbers[i]!
+		for i in (1...Int(k)).reversed() {
+			let n_i = self.countsForNumbers[i]!
+			self.totalCount += n_i
+			if n_i > self.maxCount {
+				self.maxCount = n_i
 			}
 
 			self.cumulHist[i] = 0
-			for j in (i...self.countsForNumbers.count) {
-				self.cumulHist[i]! += self.countsForNumbers[j]!
-			}
-			if self.cumulHist[i]! > self.maxCumulCount {
-				self.maxCumulCount = self.cumulHist[i]!
+			for j in (i...Int(k)) {
+				self.cumulHist[i]! += self.countsForNumbers[j]! // i.e., n_j
 			}
 		}
 
-		if self.countsForNumbers.count > 0 {
-			self.expectedValue = Double(self.totalCount)/Double(self.countsForNumbers.count)
-			self.expectedStdev = sqrt(self.expectedValue*(1.0 - 1.0/Double(self.countsForNumbers.count)))
+		let n = Double(self.totalCount) // number of rolls
+
+		if k > 0 {
+			let p_i = 1.0/k // for all values of i
+			self.expectedValue = n*p_i
+			self.expectedStdev = sqrt(n*p_i*(1.0 - p_i))
 		}
 		else {
 			self.expectedValue = 0.0
 			self.expectedStdev = 0.0
 		}
 
+		for i in (1...Int(k)) {
+			let p_i = 1.0 - Double(i - 1)/k
+			self.cumulExpectedValue[i] = n*p_i
+			self.cumulExpectedStdev[i] = sqrt(n*p_i*(1.0 - p_i))
+		}
+
 		var accum = 0.0
 		self.chisq = 0.0
 		var maxKSDistance = 0.0
-		for i in 1...self.countsForNumbers.count {
-			let dev = Double(self.countsForNumbers[i]!) - self.expectedValue
+		for i in 1...Int(k) {
+			let n_i = Double(self.countsForNumbers[i]!)
+			let dev = n_i - self.expectedValue
 			accum += dev*dev
 			self.chisq += dev*dev/self.expectedValue
-			let ksDistance = abs(Double(self.cumulHist[i]!) - self.expectedValue*Double(self.countsForNumbers.count - i + 1))
+			let ksDistance = abs(Double(self.cumulHist[i]!) - self.expectedValue*(k - Double(i - 1)))
 			if ksDistance > maxKSDistance {
 				maxKSDistance = ksDistance
 			}
 		}
-		if self.totalCount > 1 {
-			self.stdev = sqrt(accum/Double(self.totalCount - 1))
+		if n > 1.0 {
+			self.stdev = sqrt(accum/(n - 1.0))
 		}
 		else {
 			self.stdev = 0.0
 		}
-		self.ks = maxKSDistance/Double(self.totalCount)
+		self.ks = maxKSDistance/n
 	}
 
 	func isChiSqSignificant95() -> Bool {
@@ -143,7 +151,6 @@ class RollCounts: NSObject {
 		if self.totalCount < 36 {
 			return false
 		}
-//		if self.ks >= ksNumerator95/sqrt(Double(self.totalCount)) {
 		if let benchmark = ksTable95[self.countsForNumbers.count],
 			self.ks >= benchmark*sqrt(ks_n)/sqrt(Double(self.totalCount)) {
 			return true
@@ -155,7 +162,6 @@ class RollCounts: NSObject {
 		if self.totalCount < 36 {
 			return false
 		}
-//		if self.ks >= ksNumerator99/sqrt(Double(self.totalCount)) {
 		if let benchmark = ksTable99[self.countsForNumbers.count],
 			self.ks >= benchmark*sqrt(ks_n)/sqrt(Double(self.totalCount)) {
 			return true

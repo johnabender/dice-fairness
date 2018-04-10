@@ -33,9 +33,12 @@ class RollCountsController: NSObject {
 
 	func incrementCountForNumber(_ number: Int, by incrementor: Int) {
 		self.rollCounts.incrementCountForNumber(number, by: incrementor)
+		let userInfo = ["number": number,
+							 "count": self.rollCounts.countsForNumbers[number]!,
+							 "incrementor": incrementor]
 		NotificationCenter.default.post(name: NSNotification.Name(rawValue: "countsUpdated"),
 												  object: self.rollCounts,
-												  userInfo: ["number": number, "count": self.rollCounts.countsForNumbers[number]!])
+												  userInfo: userInfo)
 	}
 
 	func canSaveCurrentRolls() -> Bool {

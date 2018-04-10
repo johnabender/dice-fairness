@@ -16,6 +16,7 @@ class OptionsViewController: UIViewController {
 	@IBOutlet weak var showFairnessLineSwitch: UISwitch? = nil
 	@IBOutlet weak var showFairnessEnvelopeSwitch: UISwitch? = nil
 	@IBOutlet weak var showBarWhiskersSwitch: UISwitch? = nil
+	@IBOutlet weak var aboutStatsSpinner: UIActivityIndicatorView? = nil
 	@IBOutlet weak var versionLabel: UILabel? = nil
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -26,16 +27,18 @@ class OptionsViewController: UIViewController {
 		}
 
 		switch RollCountsController.shared.currentNSides() {
-		case 6:
+		case 4:
 			self.sidesSelector?.selectedSegmentIndex = 0
-		case 8:
+		case 6:
 			self.sidesSelector?.selectedSegmentIndex = 1
-		case 10:
+		case 8:
 			self.sidesSelector?.selectedSegmentIndex = 2
-		case 12:
+		case 10:
 			self.sidesSelector?.selectedSegmentIndex = 3
-		case 20:
+		case 12:
 			self.sidesSelector?.selectedSegmentIndex = 4
+		case 20:
+			self.sidesSelector?.selectedSegmentIndex = 5
 		default:
 			break
 		}
@@ -54,17 +57,37 @@ class OptionsViewController: UIViewController {
 		self.versionLabel?.text = String(format: "v%@ (%@)", Bundle.main.releaseVersionNumber!, Bundle.main.buildVersionNumber!)
 	}
 
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+
+		self.aboutStatsSpinner?.stopAnimating()
+	}
+
+	@IBAction func pressedAboutStats() {
+		DispatchQueue.main.async {
+			self.aboutStatsSpinner?.startAnimating()
+
+			DispatchQueue.main.async {
+				let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+				let statsVC = storyboard.instantiateViewController(withIdentifier: "statsTutorialViewController")
+				self.navigationController?.pushViewController(statsVC, animated: true)
+			}
+		}
+	}
+
 	@IBAction func chooseDice(sender: UISegmentedControl) {
 		switch sender.selectedSegmentIndex {
 		case 0:
-			RollCountsController.shared.resetCountsWithNSides(6)
+			RollCountsController.shared.resetCountsWithNSides(4)
 		case 1:
-			RollCountsController.shared.resetCountsWithNSides(8)
+			RollCountsController.shared.resetCountsWithNSides(6)
 		case 2:
-			RollCountsController.shared.resetCountsWithNSides(10)
+			RollCountsController.shared.resetCountsWithNSides(8)
 		case 3:
-			RollCountsController.shared.resetCountsWithNSides(12)
+			RollCountsController.shared.resetCountsWithNSides(10)
 		case 4:
+			RollCountsController.shared.resetCountsWithNSides(12)
+		case 5:
 			RollCountsController.shared.resetCountsWithNSides(20)
 		default:
 			break

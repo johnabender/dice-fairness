@@ -14,14 +14,7 @@ class StatsTutorialViewController: UIViewController {
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
+
 		self.textView?.setContentOffset(.zero, animated: false)
 	}
 }
-
-/*
-extension StatsTutorialViewController: UIScrollViewDelegate {
-	func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-		return self.scrollView
-	}
-}
-*/

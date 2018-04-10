@@ -12,7 +12,9 @@ let initialNSides = 8
 
 class ViewController: UIViewController {
 
-	@IBOutlet weak var buttonAreaHeightConstraint: NSLayoutConstraint?
+	@IBOutlet weak var buttonAreaHeightConstraint: NSLayoutConstraint? = nil
+
+	@IBOutlet weak var optionsButton: UIBarButtonItem? = nil
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -24,7 +26,17 @@ class ViewController: UIViewController {
 		Options.shared.load()
 	}
 
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+
+		// https://stackoverflow.com/questions/47754472/
+		self.optionsButton?.isEnabled = false
+		self.optionsButton?.isEnabled = true
+	}
+
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		super.prepare(for: segue, sender: sender)
+		
 		if let buttonVC = segue.destination as? ButtonViewController {
 			buttonVC.buttonAreaHeightConstraint = self.buttonAreaHeightConstraint
 		}

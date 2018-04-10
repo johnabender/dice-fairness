@@ -33,7 +33,13 @@ class RecentRollsViewController: UIViewController {
 
 	@objc func countsUpdated(note: Notification) {
 		if let number = note.userInfo?["number"] as? Int {
-			self.textView?.text.append(String(format: "%d\n", number))
+			if let incrementor = note.userInfo?["incrementor"] as? Int,
+				incrementor < 0 {
+				self.textView?.text.append(String(format: "-%d\n", number))
+			}
+			else {
+				self.textView?.text.append(String(format: "%d\n", number))
+			}
 			self.textView?.scrollRangeToVisible(NSRange(location: (self.textView?.text.count)! - 2, length: 0))
 			self.textView?.isScrollEnabled = false
 			self.textView?.isScrollEnabled = true
