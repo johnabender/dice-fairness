@@ -91,20 +91,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUm-Oc-7pa">
-                                <rect key="frame" x="86" y="122" width="59" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="96x-4t-YjF"/>
-                                </constraints>
-                                <state key="normal" title="Load die">
-                                    <color key="titleColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                                <connections>
-                                    <segue destination="K3e-0X-hVW" kind="show" id="WuG-Td-ltS"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buF-a6-q4d">
-                                <rect key="frame" x="175" y="122" width="58" height="44"/>
+                                <rect key="frame" x="87" y="122" width="58" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Nxd-Zn-8LS"/>
                                 </constraints>
@@ -167,7 +155,7 @@
                                     <action selector="switchedGraphOption" destination="gPG-wL-Kfl" eventType="valueChanged" id="KoR-8s-tGo"/>
                                 </connections>
                             </switch>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kwE-JM-RTT">
+                            <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kwE-JM-RTT">
                                 <rect key="frame" x="15" y="380" width="51" height="31"/>
                                 <color key="onTintColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
@@ -186,7 +174,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show error bars" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2JP-Xa-whP">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show error bars" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2JP-Xa-whP">
                                 <rect key="frame" x="74" y="387" width="109.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -201,12 +189,24 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="qxw-cN-pKs">
                                 <rect key="frame" x="150" y="188" width="20" height="20"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUm-Oc-7pa">
+                                <rect key="frame" x="175" y="122" width="59" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="96x-4t-YjF"/>
+                                </constraints>
+                                <state key="normal" title="Load die">
+                                    <color key="titleColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <segue destination="K3e-0X-hVW" kind="show" id="WuG-Td-ltS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="2JP-Xa-whP" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="q7w-cB-7Ce" secondAttribute="trailing" constant="-15" id="1Zf-Ou-Q1K"/>
                             <constraint firstItem="LUm-Oc-7pa" firstAttribute="top" secondItem="22v-tp-43K" secondAttribute="bottom" constant="15" id="5e8-rJ-GsS"/>
                             <constraint firstItem="Du5-3U-ifl" firstAttribute="leading" secondItem="4lz-9F-loA" secondAttribute="trailing" constant="10" id="75v-CY-pG6"/>
-                            <constraint firstItem="LUm-Oc-7pa" firstAttribute="trailing" secondItem="q7w-cB-7Ce" secondAttribute="centerX" constant="-15" id="8dO-qR-dBV"/>
                             <constraint firstItem="aQb-to-ZYO" firstAttribute="leading" secondItem="mwV-cp-xMi" secondAttribute="trailing" constant="10" id="9XC-2Y-trG"/>
                             <constraint firstItem="aQb-to-ZYO" firstAttribute="centerY" secondItem="mwV-cp-xMi" secondAttribute="centerY" id="AKD-CD-8gu"/>
                             <constraint firstItem="mwV-cp-xMi" firstAttribute="leading" secondItem="jDp-8j-rh6" secondAttribute="leading" id="CX2-YE-dGT"/>
@@ -216,8 +216,9 @@
                             <constraint firstItem="22v-tp-43K" firstAttribute="leading" secondItem="jDp-8j-rh6" secondAttribute="leading" id="FdO-pR-Hsf"/>
                             <constraint firstItem="mwV-cp-xMi" firstAttribute="top" secondItem="jDp-8j-rh6" secondAttribute="bottom" constant="25" id="HKo-ZL-rvF"/>
                             <constraint firstItem="22v-tp-43K" firstAttribute="trailing" secondItem="q7w-cB-7Ce" secondAttribute="trailing" constant="-15" id="NZZ-DM-NCB"/>
-                            <constraint firstItem="buF-a6-q4d" firstAttribute="leading" secondItem="q7w-cB-7Ce" secondAttribute="centerX" constant="15" id="Sgr-kG-57L"/>
+                            <constraint firstItem="buF-a6-q4d" firstAttribute="trailing" secondItem="q7w-cB-7Ce" secondAttribute="centerX" constant="-15" id="Sgr-kG-57L"/>
                             <constraint firstItem="2JP-Xa-whP" firstAttribute="centerY" secondItem="kwE-JM-RTT" secondAttribute="centerY" id="Sld-xI-HjZ"/>
+                            <constraint firstItem="LUm-Oc-7pa" firstAttribute="leading" secondItem="buF-a6-q4d" secondAttribute="trailing" constant="30" id="T3t-vb-JOL"/>
                             <constraint firstItem="22v-tp-43K" firstAttribute="trailing" secondItem="jDp-8j-rh6" secondAttribute="trailing" id="UlM-eK-YIg"/>
                             <constraint firstItem="scQ-Xp-QFs" firstAttribute="centerX" secondItem="q7w-cB-7Ce" secondAttribute="centerX" id="VYN-pE-6oW"/>
                             <constraint firstItem="Jm3-Eo-hsC" firstAttribute="bottom" secondItem="jDp-8j-rh6" secondAttribute="top" constant="-15" id="ZXf-ti-wFX"/>
@@ -225,11 +226,13 @@
                             <constraint firstItem="scQ-Xp-QFs" firstAttribute="bottom" secondItem="q7w-cB-7Ce" secondAttribute="bottom" id="be3-q3-doj"/>
                             <constraint firstItem="kwE-JM-RTT" firstAttribute="leading" secondItem="mwV-cp-xMi" secondAttribute="leading" id="eRw-dR-ji6"/>
                             <constraint firstItem="qxw-cN-pKs" firstAttribute="centerY" secondItem="Jm3-Eo-hsC" secondAttribute="centerY" id="fVq-DS-cZR"/>
+                            <constraint firstItem="aQb-to-ZYO" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="q7w-cB-7Ce" secondAttribute="trailing" constant="-15" id="fXv-Xp-dBv"/>
                             <constraint firstItem="22v-tp-43K" firstAttribute="top" secondItem="q7w-cB-7Ce" secondAttribute="top" constant="15" id="kOV-zM-CCi"/>
                             <constraint firstItem="LUm-Oc-7pa" firstAttribute="bottom" secondItem="Jm3-Eo-hsC" secondAttribute="top" constant="-10" id="nXt-zZ-wmI"/>
                             <constraint firstItem="qxw-cN-pKs" firstAttribute="centerX" secondItem="Jm3-Eo-hsC" secondAttribute="centerX" id="rL7-Wk-i9Y"/>
                             <constraint firstItem="Jm3-Eo-hsC" firstAttribute="centerX" secondItem="q7w-cB-7Ce" secondAttribute="centerX" id="uGF-hO-57G"/>
                             <constraint firstItem="4lz-9F-loA" firstAttribute="leading" secondItem="mwV-cp-xMi" secondAttribute="leading" id="wEa-dM-L9s"/>
+                            <constraint firstItem="Du5-3U-ifl" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="q7w-cB-7Ce" secondAttribute="trailing" constant="-15" id="xcJ-3x-plr"/>
                             <constraint firstItem="Du5-3U-ifl" firstAttribute="centerY" secondItem="4lz-9F-loA" secondAttribute="centerY" id="yDm-CZ-TYD"/>
                             <constraint firstItem="4lz-9F-loA" firstAttribute="top" secondItem="mwV-cp-xMi" secondAttribute="bottom" constant="15" id="zEU-Dp-nLB"/>
                         </constraints>
@@ -377,7 +380,7 @@
                                     <fragment content="statistical confidence is strong when the number of rolls is 20 times the number of sides on the die">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <font key="NSFont" size="14" name="HelveticaNeue-BoldItalic"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
                                             <font key="NSOriginalFont" size="14" name="HelveticaNeue-BoldItalic"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                         </attributes>
@@ -412,7 +415,31 @@
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                         </attributes>
                                     </fragment>
-                                    <fragment content="some more.  ">
+                                    <fragment content="some more.">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">  The best test of fairness will come from rolling the die on the same surface (tabletop, mat, etc.) as it will be rolled during a game. Different types of imperfections in a die can behave differently on different surfaces </string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="– a die may appear fair on one surface but be very biased on a different surface.">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="  ">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -470,11 +497,10 @@
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                         </attributes>
                                     </fragment>
-                                    <fragment content="Statistics">
+                                    <fragment content="Confidence interval">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="18" name="HelveticaNeue-Bold"/>
-                                            <font key="NSOriginalFont" size="18" name="HelveticaNeue-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                         </attributes>
                                     </fragment>
@@ -487,7 +513,37 @@
                                         </attributes>
                                     </fragment>
                                     <fragment>
-                                        <string key="content"> In reality, because dice are random, the histograms will not be perfectly regular. The important question is whether the variations in the histogram are significant, meaning that the die is unfair. The shaded area above and below the dashed line is the </string>
+                                        <string key="content"> In reality, because dice are random, the histograms will not be perfectly regular. The important question is whether the variations in the histogram are significant, meaning that the die is </string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="likely to be ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="unfair. The shaded area ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="shown ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="above and below the dashed line is the ">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -513,7 +569,70 @@
                                         </attributes>
                                     </fragment>
                                     <fragment>
-                                        <mutableString key="content">±2 standard deviations around the expected value, meaning that the bars on the histogram should be within the shaded area about 95% of the time if the die is fair. (Note that even on a perfectly fair die, the bars will be outside the shaded area 5% of the time, because random. Furthermore, as 5% is equal to 1 in 20, it's </mutableString>
+                                        <string key="content">±2 standard deviations around the expected value, meaning that the bars on the histogram should be within the shaded area about 95% of the time </string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                            <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="on">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                            <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                            <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="a fair ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                            <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="die. Note that even on a perfectly fair die, the bars will be outside the shaded area 5% of the time, random">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                            <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="ly">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                            <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=". Furthermore, as 5% is equal to 1 in 20, it's ">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -556,7 +675,7 @@
                                             <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </attributes>
                                     </fragment>
-                                    <fragment content=".)">
+                                    <fragment content=".">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -567,8 +686,39 @@
                                             <real key="NSStrokeWidth" value="0.0"/>
                                         </attributes>
                                     </fragment>
-                                    <fragment>
-                                        <string key="content">  Aside from overlap with the confidence interval, a die's fairness can be assessed using standard statistics. On a count histogram, the best measure of a die's fairness is by the </string>
+                                    <fragment content="  ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                            <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="Statistical significance">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="18" name="HelveticaNeue-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="  ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="The cleanest and most universally accepted way to assess a die's fairness is ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="using standard statistics. On a count histogram, the best measure of a die's fairness is by the ">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -640,7 +790,22 @@
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                         </attributes>
                                     </fragment>
-                                    <fragment content=" a high value for ">
+                                    <fragment content=" a ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="larger">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" value for ">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-let barSpacing = CGFloat(2)
+let barSpacing = CGFloat(3)
 let sideMargins = CGFloat(20)
 let topMargin = CGFloat(60)
 let bottomMargin = CGFloat(30)
@@ -223,7 +223,7 @@ class GraphView: UIView {
 
 		if Options.shared.drawFairnessEnvelope && totalCount >= nBars {
 			// draw "fairness envelope"
-			context?.setFillColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.3)
+			context?.setFillColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
 			if Options.shared.drawCumulHist {
 				for i in 2...nBars {
 					let fairHeight = usableHeight*CGFloat(self.rollCounts.cumulExpectedValue[i]!)/CGFloat(maxCount)
@@ -231,7 +231,7 @@ class GraphView: UIView {
 					let bottomY = max(fairHeight - envelopeHeight, 0.0)
 					let topY = min(fairHeight + envelopeHeight, usableHeight + whiskerDashLength)
 					let leftX = self.leftEdgeForBar(index: i - 1, barWidth: barWidth) - barSpacing/2.0
-					UIRectFill(CGRect(x: leftX, y: topMargin + usableHeight - topY, width: barWidth + barSpacing, height: topY - bottomY))
+					UIRectFillUsingBlendMode(CGRect(x: leftX, y: topMargin + usableHeight - topY, width: barWidth + barSpacing, height: topY - bottomY), .normal)
 				}
 			}
 			else {
@@ -241,7 +241,7 @@ class GraphView: UIView {
 									usableHeight + whiskerDashLength)
 				let leftX = sideMargins/2.0
 				let rightX = self.frame.size.width - sideMargins/2.0
-				UIRectFill(CGRect(x: leftX, y: topMargin + usableHeight - topY, width: rightX - leftX, height: topY - bottomY))
+				UIRectFillUsingBlendMode(CGRect(x: leftX, y: topMargin + usableHeight - topY, width: rightX - leftX, height: topY - bottomY), .normal)
 			}
 		}
 
@@ -251,7 +251,7 @@ class GraphView: UIView {
 			let x = self.leftEdgeForBar(index: i - 1, barWidth: barWidth)
 			let height = self.heightForBar(number: i, usableHeight: usableHeight)
 			let whitespace = usableHeight - height
-			UIRectFill(CGRect(x: x, y: topMargin + whitespace, width: barWidth, height: height))
+			UIRectFillUsingBlendMode(CGRect(x: x, y: topMargin + whitespace, width: barWidth, height: height), .normal)
 		}
 
 		if Options.shared.drawFairnessLine && totalCount > 0 {
@@ -280,7 +280,6 @@ class GraphView: UIView {
 													  y: topMargin + usableHeight - fairHeight))
 
 				fairPath.setLineDash([5.0, 3.0], count: 2, phase: 0.0)
-				context?.setStrokeColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0)
 				context?.setStrokeColor(red: 0.0, green: 0.8, blue: 0.0, alpha: 1.0)
 			}
 			fairPath.stroke()
