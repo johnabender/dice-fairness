@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		372E5FCD206EB0F900385C65 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E5FCC206EB0F900385C65 /* GraphView.swift */; };
+		373720D3207E76E50033D631 /* Bundle+VersionNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373720D2207E76E50033D631 /* Bundle+VersionNumber.swift */; };
 		3758B9AF207325D6005E3DA2 /* LoadRollsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758B9AE207325D6005E3DA2 /* LoadRollsTableViewController.swift */; };
 		3758B9B22073FC19005E3DA2 /* StatsTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758B9B12073FC19005E3DA2 /* StatsTutorialViewController.swift */; };
 		377868E1206EED3D003A32D8 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377868E0206EED3D003A32D8 /* OptionsViewController.swift */; };
@@ -22,13 +23,14 @@
 		378E8CD0206AAAD900CB67D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 378E8CCE206AAAD900CB67D7 /* LaunchScreen.storyboard */; };
 		378E8CD8206AFDAB00CB67D7 /* ButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E8CD7206AFDAB00CB67D7 /* ButtonViewController.swift */; };
 		378E8CDA206AFDB500CB67D7 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378E8CD9206AFDB500CB67D7 /* GraphViewController.swift */; };
-		3793F7E52072B83200A083BF /* RandomColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793F7E42072B83200A083BF /* RandomColorExtension.swift */; };
+		3793F7E52072B83200A083BF /* UIColor+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793F7E42072B83200A083BF /* UIColor+Random.swift */; };
 		37C86D9520781D54004F66FE /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C86D9420781D54004F66FE /* Options.swift */; };
 		37C86D97207ACC08004F66FE /* RecentRollsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C86D96207ACC08004F66FE /* RecentRollsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		372E5FCC206EB0F900385C65 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		373720D2207E76E50033D631 /* Bundle+VersionNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+VersionNumber.swift"; sourceTree = "<group>"; };
 		3758B9AE207325D6005E3DA2 /* LoadRollsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadRollsTableViewController.swift; sourceTree = "<group>"; };
 		3758B9B12073FC19005E3DA2 /* StatsTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTutorialViewController.swift; sourceTree = "<group>"; };
 		377868E0206EED3D003A32D8 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
@@ -45,7 +47,7 @@
 		378E8CD1206AAAD900CB67D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		378E8CD7206AFDAB00CB67D7 /* ButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewController.swift; sourceTree = "<group>"; };
 		378E8CD9206AFDB500CB67D7 /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
-		3793F7E42072B83200A083BF /* RandomColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColorExtension.swift; sourceTree = "<group>"; };
+		3793F7E42072B83200A083BF /* UIColor+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Random.swift"; sourceTree = "<group>"; };
 		37C86D9420781D54004F66FE /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 		37C86D96207ACC08004F66FE /* RecentRollsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRollsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,7 +121,8 @@
 				377868E620729165003A32D8 /* model */,
 				377868E72072917A003A32D8 /* main page views */,
 				3758B9B020732755005E3DA2 /* options */,
-				3793F7E42072B83200A083BF /* RandomColorExtension.swift */,
+				3793F7E42072B83200A083BF /* UIColor+Random.swift */,
+				373720D2207E76E50033D631 /* Bundle+VersionNumber.swift */,
 				378E8CCC206AAAD900CB67D7 /* Assets.xcassets */,
 				378E8CCE206AAAD900CB67D7 /* LaunchScreen.storyboard */,
 				378E8CD1206AAAD900CB67D7 /* Info.plist */,
@@ -211,7 +214,8 @@
 				378E8CC6206AAAD900CB67D7 /* AppDelegate.swift in Sources */,
 				3758B9AF207325D6005E3DA2 /* LoadRollsTableViewController.swift in Sources */,
 				37C86D97207ACC08004F66FE /* RecentRollsViewController.swift in Sources */,
-				3793F7E52072B83200A083BF /* RandomColorExtension.swift in Sources */,
+				373720D3207E76E50033D631 /* Bundle+VersionNumber.swift in Sources */,
+				3793F7E52072B83200A083BF /* UIColor+Random.swift in Sources */,
 				3758B9B22073FC19005E3DA2 /* StatsTutorialViewController.swift in Sources */,
 				372E5FCD206EB0F900385C65 /* GraphView.swift in Sources */,
 			);
