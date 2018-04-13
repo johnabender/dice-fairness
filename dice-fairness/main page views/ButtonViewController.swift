@@ -58,7 +58,7 @@ class ButtonViewController: UIViewController {
 
 		// add individual number buttons
 		for i in 0..<nButtons {
-			if let nibViews = Bundle.main.loadNibNamed("NumberView", owner: self, options: nil), nibViews.count > 0, let numberView = nibViews[0] as? NumberView {
+			let numberView = NumberView(frame: .zero)
 				numberView.translatesAutoresizingMaskIntoConstraints = false
 				if nButtons == 10 && i == 9 {
 					numberView.button?.setTitle("0/10", for: .normal)
@@ -88,26 +88,25 @@ class ButtonViewController: UIViewController {
 				else {
 					self.view.addConstraint(NSLayoutConstraint(item: numberView, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.45, constant: 0.0))
 				}
-			}
 		}
 	}
 
 	func indexFromEvent(_ sender: Any?) -> Int {
 		if let button = sender as? UIButton {
 			for (i, v) in self.numberViews.enumerated() {
-				if button.superview == v {
+				if button.superview?.superview == v {
 					return i
 				}
 			}
 		}
 		else if let gestureRecognizer = sender as? UIGestureRecognizer {
 			for (i, v) in self.numberViews.enumerated() {
-				if gestureRecognizer.view?.superview == v {
+				if gestureRecognizer.view?.superview?.superview == v {
 					return i
 				}
 			}
 		}
-		print("failed finding a sender match for event from %@", sender!)
+		print("the button failed finding a sender match for event from", sender!)
 		return -1
 	}
 

@@ -90,9 +90,9 @@
 				378E8CD7206AFDAB00CB67D7 /* ButtonViewController.swift */,
 				37C86D96207ACC08004F66FE /* RecentRollsViewController.swift */,
 				3779FBC0206DA5A100B86AFA /* NumberView.swift */,
+				3779FBBA206DA47F00B86AFA /* NumberView.xib */,
 				378E8CD9206AFDB500CB67D7 /* GraphViewController.swift */,
 				372E5FCC206EB0F900385C65 /* GraphView.swift */,
-				3779FBBA206DA47F00B86AFA /* NumberView.xib */,
 			);
 			path = "main page views";
 			sourceTree = "<group>";

@@ -22,9 +22,7 @@ class OptionsViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
 
-		if !RollCountsController.shared.canSaveCurrentRolls() {
-			self.saveButton?.isEnabled = false
-		}
+		self.saveButton?.isEnabled = RollCountsController.shared.canSaveCurrentRolls()
 
 		switch RollCountsController.shared.currentNSides() {
 		case 4:

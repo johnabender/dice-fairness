@@ -10,9 +10,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NumberView" customModule="dice_fairness" customModuleProvider="target">
+            <connections>
+                <outlet property="button" destination="zGR-fk-FcC" id="tFp-v1-hRv"/>
+                <outlet property="label" destination="pza-WK-p5e" id="Aim-ov-D4D"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NumberView" customModule="dice_fairness" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -46,10 +51,6 @@
                 <constraint firstItem="zGR-fk-FcC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="z5U-Nl-ASE"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <connections>
-                <outlet property="button" destination="zGR-fk-FcC" id="zgQ-5R-xjv"/>
-                <outlet property="label" destination="pza-WK-p5e" id="aAJ-Si-bmb"/>
-            </connections>
         </view>
         <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="BNV-iz-I06"/>
     </objects>
