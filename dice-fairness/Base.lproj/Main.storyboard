@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OdF-h4-PNh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OdF-h4-PNh">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,13 +35,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="20r-db-Y1S">
-                                <rect key="frame" x="0.0" y="438" width="375" height="340"/>
+                                <rect key="frame" x="0.0" y="458" width="375" height="320"/>
                                 <connections>
                                     <segue destination="pmM-Qc-WE8" kind="embed" id="bIY-uK-RkK"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hok-ex-hhZ">
-                                <rect key="frame" x="0.0" y="88" width="375" height="350"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="350"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="350" id="SPK-BU-yGL"/>
                                 </constraints>
@@ -50,16 +50,28 @@
                                     <segue destination="8xz-hT-6oC" kind="embed" id="4Ck-Uq-0x2"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zwX-jC-fS6">
+                                <rect key="frame" x="0.0" y="88" width="375" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="FBR-CK-QGD"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="VgR-UI-kiI" kind="embed" id="acu-WN-nBt"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="hok-ex-hhZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ApK-od-szj"/>
+                            <constraint firstItem="hok-ex-hhZ" firstAttribute="top" secondItem="zwX-jC-fS6" secondAttribute="bottom" id="ApK-od-szj"/>
                             <constraint firstItem="20r-db-Y1S" firstAttribute="top" secondItem="hok-ex-hhZ" secondAttribute="bottom" id="F7z-P4-0tp"/>
+                            <constraint firstItem="zwX-jC-fS6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Gp5-Fd-Nsd"/>
+                            <constraint firstItem="zwX-jC-fS6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Jx2-c4-80S"/>
                             <constraint firstItem="20r-db-Y1S" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Q2E-Ig-fCW"/>
                             <constraint firstItem="20r-db-Y1S" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ZME-gf-Br8"/>
                             <constraint firstItem="20r-db-Y1S" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cZ7-hW-yHg"/>
                             <constraint firstItem="hok-ex-hhZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="iTF-Gg-H25"/>
                             <constraint firstItem="hok-ex-hhZ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="u7A-Ta-blj"/>
+                            <constraint firstItem="zwX-jC-fS6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="yyF-v4-Ttu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -77,7 +89,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="buttonAreaHeightConstraint" destination="SPK-BU-yGL" id="goS-Vs-i1a"/>
+                        <outlet property="buttonAreaView" destination="hok-ex-hhZ" id="NdS-Mq-rav"/>
                         <outlet property="optionsButton" destination="6Es-g4-0yg" id="BgQ-P9-xet"/>
+                        <outlet property="topGraphAreaHeightConstraint" destination="FBR-CK-QGD" id="l9g-n4-drm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -93,10 +107,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buF-a6-q4d">
-                                <rect key="frame" x="114.66666666666669" y="146" width="58" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Nxd-Zn-8LS"/>
-                                </constraints>
+                                <rect key="frame" x="15" y="146" width="58" height="44"/>
                                 <color key="tintColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Save die"/>
                                 <state key="disabled">
@@ -110,7 +121,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUm-Oc-7pa">
-                                <rect key="frame" x="202.66666666666666" y="146" width="58.999999999999972" height="44"/>
+                                <rect key="frame" x="158" y="146" width="59" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="96x-4t-YjF"/>
                                 </constraints>
@@ -124,6 +135,17 @@
                                 </state>
                                 <connections>
                                     <segue destination="K3e-0X-hVW" kind="show" id="WuG-Td-ltS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YgC-f9-b5a">
+                                <rect key="frame" x="247" y="146" width="113" height="44"/>
+                                <color key="tintColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Load second die"/>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="K3e-0X-hVW" kind="show" id="7nF-xO-aIf"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jm3-Eo-hsC">
@@ -221,7 +243,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="2JP-Xa-whP" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="q7w-cB-7Ce" secondAttribute="trailing" constant="-15" id="1Zf-Ou-Q1K"/>
-                            <constraint firstItem="LUm-Oc-7pa" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="q7w-cB-7Ce" secondAttribute="trailing" constant="-15" id="2Pu-Nb-ps3"/>
+                            <constraint firstItem="YgC-f9-b5a" firstAttribute="trailing" secondItem="q7w-cB-7Ce" secondAttribute="trailing" constant="-15" id="2L3-5V-Oba"/>
                             <constraint firstItem="LUm-Oc-7pa" firstAttribute="top" secondItem="22v-tp-43K" secondAttribute="bottom" constant="15" id="5e8-rJ-GsS"/>
                             <constraint firstItem="Du5-3U-ifl" firstAttribute="leading" secondItem="4lz-9F-loA" secondAttribute="trailing" constant="10" id="75v-CY-pG6"/>
                             <constraint firstItem="aQb-to-ZYO" firstAttribute="leading" secondItem="mwV-cp-xMi" secondAttribute="trailing" constant="10" id="9XC-2Y-trG"/>
@@ -232,23 +254,26 @@
                             <constraint firstItem="2JP-Xa-whP" firstAttribute="leading" secondItem="kwE-JM-RTT" secondAttribute="trailing" constant="10" id="DyM-47-51u"/>
                             <constraint firstItem="22v-tp-43K" firstAttribute="leading" secondItem="jDp-8j-rh6" secondAttribute="leading" id="FdO-pR-Hsf"/>
                             <constraint firstItem="mwV-cp-xMi" firstAttribute="top" secondItem="jDp-8j-rh6" secondAttribute="bottom" constant="25" id="HKo-ZL-rvF"/>
+                            <constraint firstItem="YgC-f9-b5a" firstAttribute="bottom" secondItem="LUm-Oc-7pa" secondAttribute="bottom" id="MIt-QC-Mi6"/>
                             <constraint firstItem="22v-tp-43K" firstAttribute="trailing" secondItem="q7w-cB-7Ce" secondAttribute="trailing" constant="-15" id="NZZ-DM-NCB"/>
-                            <constraint firstItem="buF-a6-q4d" firstAttribute="trailing" secondItem="q7w-cB-7Ce" secondAttribute="centerX" constant="-15" id="Sgr-kG-57L"/>
                             <constraint firstItem="2JP-Xa-whP" firstAttribute="centerY" secondItem="kwE-JM-RTT" secondAttribute="centerY" id="Sld-xI-HjZ"/>
-                            <constraint firstItem="LUm-Oc-7pa" firstAttribute="leading" secondItem="buF-a6-q4d" secondAttribute="trailing" constant="30" id="T3t-vb-JOL"/>
+                            <constraint firstItem="LUm-Oc-7pa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="buF-a6-q4d" secondAttribute="trailing" constant="30" id="T3t-vb-JOL"/>
                             <constraint firstItem="22v-tp-43K" firstAttribute="trailing" secondItem="jDp-8j-rh6" secondAttribute="trailing" id="UlM-eK-YIg"/>
                             <constraint firstItem="scQ-Xp-QFs" firstAttribute="centerX" secondItem="q7w-cB-7Ce" secondAttribute="centerX" id="VYN-pE-6oW"/>
                             <constraint firstItem="Jm3-Eo-hsC" firstAttribute="bottom" secondItem="jDp-8j-rh6" secondAttribute="top" constant="-15" id="ZXf-ti-wFX"/>
                             <constraint firstItem="buF-a6-q4d" firstAttribute="top" secondItem="LUm-Oc-7pa" secondAttribute="top" id="alz-T8-htq"/>
+                            <constraint firstItem="YgC-f9-b5a" firstAttribute="leading" secondItem="LUm-Oc-7pa" secondAttribute="trailing" constant="30" id="ax2-E5-NOh"/>
                             <constraint firstItem="scQ-Xp-QFs" firstAttribute="bottom" secondItem="q7w-cB-7Ce" secondAttribute="bottom" id="be3-q3-doj"/>
-                            <constraint firstItem="buF-a6-q4d" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="q7w-cB-7Ce" secondAttribute="leading" constant="15" id="d7L-fF-hGH"/>
+                            <constraint firstItem="buF-a6-q4d" firstAttribute="leading" secondItem="q7w-cB-7Ce" secondAttribute="leading" constant="15" id="d7L-fF-hGH"/>
                             <constraint firstItem="kwE-JM-RTT" firstAttribute="leading" secondItem="mwV-cp-xMi" secondAttribute="leading" id="eRw-dR-ji6"/>
                             <constraint firstItem="qxw-cN-pKs" firstAttribute="centerY" secondItem="Jm3-Eo-hsC" secondAttribute="centerY" id="fVq-DS-cZR"/>
                             <constraint firstItem="aQb-to-ZYO" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="q7w-cB-7Ce" secondAttribute="trailing" constant="-15" id="fXv-Xp-dBv"/>
                             <constraint firstItem="22v-tp-43K" firstAttribute="top" secondItem="q7w-cB-7Ce" secondAttribute="top" constant="15" id="kOV-zM-CCi"/>
                             <constraint firstItem="LUm-Oc-7pa" firstAttribute="bottom" secondItem="Jm3-Eo-hsC" secondAttribute="top" constant="-10" id="nXt-zZ-wmI"/>
+                            <constraint firstItem="YgC-f9-b5a" firstAttribute="top" secondItem="LUm-Oc-7pa" secondAttribute="top" id="qYh-Wj-rd5"/>
                             <constraint firstItem="qxw-cN-pKs" firstAttribute="centerX" secondItem="Jm3-Eo-hsC" secondAttribute="centerX" id="rL7-Wk-i9Y"/>
                             <constraint firstItem="Jm3-Eo-hsC" firstAttribute="centerX" secondItem="q7w-cB-7Ce" secondAttribute="centerX" id="uGF-hO-57G"/>
+                            <constraint firstItem="LUm-Oc-7pa" firstAttribute="bottom" secondItem="buF-a6-q4d" secondAttribute="bottom" id="vgb-dd-dt0"/>
                             <constraint firstItem="4lz-9F-loA" firstAttribute="leading" secondItem="mwV-cp-xMi" secondAttribute="leading" id="wEa-dM-L9s"/>
                             <constraint firstItem="Du5-3U-ifl" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="q7w-cB-7Ce" secondAttribute="trailing" constant="-15" id="xcJ-3x-plr"/>
                             <constraint firstItem="Du5-3U-ifl" firstAttribute="centerY" secondItem="4lz-9F-loA" secondAttribute="centerY" id="yDm-CZ-TYD"/>
@@ -259,6 +284,7 @@
                     <connections>
                         <outlet property="aboutStatsSpinner" destination="qxw-cN-pKs" id="4fo-ya-fk0"/>
                         <outlet property="histogramTypeSelector" destination="jDp-8j-rh6" id="93v-fw-ahw"/>
+                        <outlet property="loadSecondDieButton" destination="YgC-f9-b5a" id="pmb-er-0Ap"/>
                         <outlet property="saveButton" destination="buF-a6-q4d" id="QbC-LG-f30"/>
                         <outlet property="showBarWhiskersSwitch" destination="kwE-JM-RTT" id="EZf-Rm-mnw"/>
                         <outlet property="showFairnessEnvelopeSwitch" destination="4lz-9F-loA" id="xgG-Mf-tcB"/>
@@ -315,6 +341,30 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tnf-08-8Qp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="975" y="923"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="17Z-3M-Ied">
+            <objects>
+                <viewController storyboardIdentifier="ScrimViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="yDt-6U-4Tg" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jfc-DU-YNY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="kPV-v2-6Mk">
+                                <rect key="frame" x="169" y="392.66666666666669" width="37" height="37"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                        <constraints>
+                            <constraint firstItem="kPV-v2-6Mk" firstAttribute="centerY" secondItem="U4m-EL-Za0" secondAttribute="centerY" id="Ish-hp-Lh1"/>
+                            <constraint firstItem="kPV-v2-6Mk" firstAttribute="centerX" secondItem="U4m-EL-Za0" secondAttribute="centerX" id="z7k-Qa-vzE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="U4m-EL-Za0"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6DX-57-ckW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1996" y="923"/>
         </scene>
         <!--Statistics-->
         <scene sceneID="QIl-eW-n4k">
@@ -531,7 +581,7 @@
                                         </attributes>
                                     </fragment>
                                     <fragment>
-                                        <string key="content"> In reality, because dice are random, the histograms will not be perfectly regular. The important question is whether the variations in the histogram are significant, meaning that the die is </string>
+                                        <string key="content"> In reality, because dice are random, the histograms will not be perfectly regular. The important question is whether the variations in the histogram are </string>
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -539,14 +589,29 @@
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                         </attributes>
                                     </fragment>
-                                    <fragment content="likely to be ">
+                                    <fragment content="large enough">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                         </attributes>
                                     </fragment>
-                                    <fragment content="unfair. The shaded area ">
+                                    <fragment content=" that the die is ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="unlikely to be ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="fair. The shaded area ">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -629,7 +694,49 @@
                                             <real key="NSStrokeWidth" value="0.0"/>
                                         </attributes>
                                     </fragment>
-                                    <fragment content="die. Note that even on a perfectly fair die, the bars will be outside the shaded area 5% of the time, random">
+                                    <fragment content="die. Note that even on a perfectly fair die, ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                            <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="any">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                            <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" bar ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                            <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="could">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                            <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" be outside the shaded area 5% of the time, random">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -661,7 +768,17 @@
                                             <real key="NSStrokeWidth" value="0.0"/>
                                         </attributes>
                                     </fragment>
-                                    <fragment content="expected">
+                                    <fragment content="predict">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue-Italic"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                            <color key="NSStrokeColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="ed">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue-Italic"/>
@@ -921,9 +1038,9 @@
         <!--Graph View Controller-->
         <scene sceneID="aNK-W7-iRC">
             <objects>
-                <viewController id="pmM-Qc-WE8" customClass="GraphViewController" customModule="dice_fairness" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GraphViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pmM-Qc-WE8" customClass="GraphViewController" customModule="dice_fairness" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PIM-Zb-b58" customClass="GraphView" customModule="dice_fairness" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="340"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="izq-UJ-Krd"/>
@@ -936,7 +1053,7 @@
         <!--Button View Controller-->
         <scene sceneID="cU0-rh-AlU">
             <objects>
-                <viewController id="8xz-hT-6oC" customClass="ButtonViewController" customModule="dice_fairness" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ButtonViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8xz-hT-6oC" customClass="ButtonViewController" customModule="dice_fairness" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aIA-2c-Gii">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1006,5 +1123,23 @@
             </objects>
             <point key="canvasLocation" x="1805.625" y="-29.577464788732396"/>
         </scene>
+        <!--Graph View Controller-->
+        <scene sceneID="T3E-Pq-ssH">
+            <objects>
+                <viewController storyboardIdentifier="GraphViewControllerTop" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VgR-UI-kiI" customClass="GraphViewController" customModule="dice_fairness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="3eU-gJ-uan" customClass="GraphView" customModule="dice_fairness" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+                        <viewLayoutGuide key="safeArea" id="TZw-l8-330"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x6F-gn-7cE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1167" y="-497"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="7nF-xO-aIf"/>
+    </inferredMetricsTieBreakers>
 </document>

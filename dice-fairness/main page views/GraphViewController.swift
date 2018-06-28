@@ -10,9 +10,15 @@ import UIKit
 
 class GraphViewController: UIViewController {
 
+	var rollCounts = RollCountsController.shared.rollCounts
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		// This will cause all GraphViewControllers to update to the same new counts,
+		// if this notification is ever received when there are multiple GraphViewControllers
+		// on the screen at the same time. The idea is never to send the notifications
+		// when in that state, because counts aren't being updated.
 		NotificationCenter.default.addObserver(self, selector: #selector(countsUpdated), name: NSNotification.Name(rawValue: "countsUpdated"), object: nil)
 	}
 
@@ -20,10 +26,10 @@ class GraphViewController: UIViewController {
 		super.viewWillAppear(animated)
 
 		if let view = self.view as? GraphView {
-			view.setupLabels(RollCountsController.shared.currentNSides())
+			view.rollCounts = self.rollCounts
+			view.setupLabels()
+			view.setNeedsDisplay()
 		}
-
-		self.view.setNeedsDisplay()
 	}
 
 	@objc func countsUpdated(note: Notification) {

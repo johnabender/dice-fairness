@@ -10,6 +10,8 @@ import UIKit
 
 class LoadRollsTableViewController: UITableViewController {
 
+	var isLoadingSecond = false
+
 	var savedRolls: [String] = []
 
 	override func numberOfSections(in tableView: UITableView) -> Int {
@@ -64,14 +66,43 @@ class LoadRollsTableViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		RollCountsController.shared.loadCountsWithTitle(self.savedRolls[indexPath.row])
-		tableView.deselectRow(at: indexPath, animated: true)
-		self.navigationController?.popToRootViewController(animated: true)
+		if self.isLoadingSecond {
+			DispatchQueue.main.async {
+				let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+				let scrimVC = storyboard.instantiateViewController(withIdentifier: "ScrimViewController")
+				self.present(scrimVC, animated: true, completion: nil)
+
+				DispatchQueue.main.async {
+					let secondCounts = RollCountsController()
+					secondCounts.loadCountsWithTitle(self.savedRolls[indexPath.row])
+					RollCountsController.shared.setSecondRollCounts(secondCounts.rollCounts)
+					NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadedSecondDie"),
+															  object: secondCounts.rollCounts)
+
+					DispatchQueue.main.async {
+						scrimVC.dismiss(animated: true, completion: nil)
+					}
+					DispatchQueue.main.async {
+						tableView.deselectRow(at: indexPath, animated: true)
+					}
+					self.navigationController?.popToRootViewController(animated: true)
+				}
+			}
+		}
+		else {
+			RollCountsController.shared.loadCountsWithTitle(self.savedRolls[indexPath.row])
+			RollCountsController.shared.secondRollCounts = nil
+			NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadedSecondDie"),
+													  object: nil)
+
+			DispatchQueue.main.async {
+				tableView.deselectRow(at: indexPath, animated: true)
+			}
+			self.navigationController?.popToRootViewController(animated: true)
+		}
 	}
 
-	// Override to support conditional editing of the table view.
 	override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-	// Return false if you do not want the specified item to be editable.
 		return true
 	}
 

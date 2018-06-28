@@ -14,25 +14,37 @@ class RollCountsController: NSObject {
 	static let shared = RollCountsController()
 
 	var rollCounts: RollCounts = RollCounts()
+	var secondRollCounts: RollCounts? = nil
+	var combinedRollCounts: CombinedRollCounts? = nil
+
+	var hasChanged = false
+
+	func setSecondRollCounts(_ second: RollCounts) {
+		self.secondRollCounts = second
+		self.combinedRollCounts = CombinedRollCounts([self.rollCounts, self.secondRollCounts!])
+	}
 
 	func currentNSides() -> Int {
-		return self.rollCounts.countsForNumbers.count
+		return self.rollCounts.nSides()
 	}
 
 	func resetCounts() {
-		self.rollCounts.resetCounts(self.currentNSides())
+		self.rollCounts.resetCounts(minVal: 1, maxVal: self.currentNSides())
+		self.hasChanged = false
 		NotificationCenter.default.post(name: NSNotification.Name(rawValue: "countsUpdated"),
 												  object: self.rollCounts)
 	}
 
 	func resetCountsWithNSides(_ nSides: Int) {
-		self.rollCounts.resetCounts(nSides)
+		self.rollCounts.resetCounts(minVal: 1, maxVal: nSides)
+		self.hasChanged = false
 		NotificationCenter.default.post(name: NSNotification.Name(rawValue: "countsUpdated"),
 												  object: self.rollCounts)
 	}
 
 	func incrementCountForNumber(_ number: Int, by incrementor: Int) {
 		self.rollCounts.incrementCountForNumber(number, by: incrementor)
+		self.hasChanged = true
 		let userInfo = ["number": number,
 							 "count": self.rollCounts.countsForNumbers[number]!,
 							 "incrementor": incrementor]
@@ -42,6 +54,8 @@ class RollCountsController: NSObject {
 	}
 
 	func canSaveCurrentRolls() -> Bool {
+		if !self.hasChanged { return false }
+
 		for counts in self.rollCounts.countsForNumbers.values {
 			if counts > 0 {
 				return true
@@ -58,10 +72,11 @@ class RollCountsController: NSObject {
 
 	func saveCountsWithTitle(_ title: String) {
 		let data = NSKeyedArchiver.archivedData(withRootObject: self.rollCounts.countsForNumbers)
-		let formattedCount = String(format: "%03d", self.rollCounts.countsForNumbers.count)
+		let formattedCount = String(format: "%03d", self.rollCounts.nSides())
 		let saveSuffix = "-" + formattedCount + "-" + self.getCurrentDateStamp()
 		UserDefaults.standard.set(data, forKey: savePrefix + title + saveSuffix)
 		self.rollCounts.name = title + saveSuffix
+		self.hasChanged = false
 	}
 
 	func listSavedCounts() -> [String] {
@@ -79,7 +94,19 @@ class RollCountsController: NSObject {
 			let newCounts = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? Dictionary<Int,Int> {
 			self.rollCounts.countsForNumbers = newCounts
 			self.rollCounts.name = title
+			var min = 0, max = 0
+			for key in newCounts.keys {
+				if min == 0 || key < min {
+					min = key
+				}
+				if key > max {
+					max = key
+				}
+			}
+			self.rollCounts.minVal = min
+			self.rollCounts.maxVal = max
 			self.rollCounts.recalculateStats()
+			self.hasChanged = false
 			NotificationCenter.default.post(name: NSNotification.Name(rawValue: "countsUpdated"),
 													  object: self.rollCounts)
 		}

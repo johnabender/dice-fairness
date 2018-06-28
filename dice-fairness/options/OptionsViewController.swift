@@ -11,6 +11,7 @@ import UIKit
 class OptionsViewController: UIViewController {
 
 	@IBOutlet weak var saveButton: UIButton? = nil
+	@IBOutlet weak var loadSecondDieButton: UIButton? = nil
 	@IBOutlet weak var sidesSelector: UISegmentedControl? = nil
 	@IBOutlet weak var histogramTypeSelector: UISegmentedControl? = nil
 	@IBOutlet weak var showFairnessLineSwitch: UISwitch? = nil
@@ -23,22 +24,29 @@ class OptionsViewController: UIViewController {
 		super.viewWillAppear(true)
 
 		self.saveButton?.isEnabled = RollCountsController.shared.canSaveCurrentRolls()
+		self.loadSecondDieButton?.isEnabled = !RollCountsController.shared.hasChanged
 
-		switch RollCountsController.shared.currentNSides() {
-		case 4:
-			self.sidesSelector?.selectedSegmentIndex = 0
-		case 6:
-			self.sidesSelector?.selectedSegmentIndex = 1
-		case 8:
-			self.sidesSelector?.selectedSegmentIndex = 2
-		case 10:
-			self.sidesSelector?.selectedSegmentIndex = 3
-		case 12:
-			self.sidesSelector?.selectedSegmentIndex = 4
-		case 20:
-			self.sidesSelector?.selectedSegmentIndex = 5
-		default:
-			break
+		if RollCountsController.shared.secondRollCounts != nil {
+			self.sidesSelector?.selectedSegmentIndex = -1
+			self.sidesSelector?.isEnabled = false
+		}
+		else {
+			switch RollCountsController.shared.currentNSides() {
+			case 4:
+				self.sidesSelector?.selectedSegmentIndex = 0
+			case 6:
+				self.sidesSelector?.selectedSegmentIndex = 1
+			case 8:
+				self.sidesSelector?.selectedSegmentIndex = 2
+			case 10:
+				self.sidesSelector?.selectedSegmentIndex = 3
+			case 12:
+				self.sidesSelector?.selectedSegmentIndex = 4
+			case 20:
+				self.sidesSelector?.selectedSegmentIndex = 5
+			default:
+				break
+			}
 		}
 
 		switch Options.shared.drawCumulHist {
@@ -147,5 +155,15 @@ class OptionsViewController: UIViewController {
 			}
 		}))
 		self.present(saveAlert, animated: true, completion: nil)
+	}
+
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		super.prepare(for: segue, sender: sender)
+
+		if let s = sender as? UIButton,
+			s == self.loadSecondDieButton,
+			let loadVC = segue.destination as? LoadRollsTableViewController {
+			loadVC.isLoadingSecond = true
+		}
 	}
 }

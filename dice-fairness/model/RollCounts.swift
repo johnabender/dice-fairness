@@ -37,6 +37,9 @@ let ks_n = 1e7
 class RollCounts: NSObject {
 	var countsForNumbers: Dictionary<Int,Int> = [:]
 
+	var minVal = 0
+	var maxVal = 0
+
 	var name: String? = nil
 
 	var totalCount = 0
@@ -53,10 +56,12 @@ class RollCounts: NSObject {
 
 	var ks = 0.0
 
-	func resetCounts(_ nSides: Int) {
+	func resetCounts(minVal: Int, maxVal: Int) {
 		self.countsForNumbers = [:]
 		self.name = nil
-		for i in 1...nSides {
+		self.minVal = minVal
+		self.maxVal = maxVal
+		for i in minVal...maxVal {
 			countsForNumbers[i] = 0
 		}
 		self.recalculateStats()
@@ -73,12 +78,16 @@ class RollCounts: NSObject {
 		}
 	}
 
+	func nSides() -> Int {
+		return maxVal - minVal + 1
+	}
+
 	func recalculateStats() {
-		let k = Double(self.countsForNumbers.count) // number of sides on the die
+		let k = Double(self.nSides()) // number of sides on the die
 
 		self.totalCount = 0
 		self.maxCount = 0
-		for i in (1...Int(k)).reversed() {
+		for i in (minVal...maxVal).reversed() {
 			let n_i = self.countsForNumbers[i]!
 			self.totalCount += n_i
 			if n_i > self.maxCount {
@@ -86,7 +95,7 @@ class RollCounts: NSObject {
 			}
 
 			self.cumulHist[i] = 0
-			for j in (i...Int(k)) {
+			for j in (i...maxVal) {
 				self.cumulHist[i]! += self.countsForNumbers[j]! // i.e., n_j
 			}
 		}
@@ -103,8 +112,8 @@ class RollCounts: NSObject {
 			self.expectedStdev = 0.0
 		}
 
-		for i in (1...Int(k)) {
-			let p_i = 1.0 - Double(i - 1)/k
+		for i in (minVal...maxVal) {
+			let p_i = 1.0 - Double(i - minVal)/k
 			self.cumulExpectedValue[i] = n*p_i
 			self.cumulExpectedStdev[i] = sqrt(n*p_i*(1.0 - p_i))
 		}
@@ -112,12 +121,12 @@ class RollCounts: NSObject {
 		var accum = 0.0
 		self.chisq = 0.0
 		var maxKSDistance = 0.0
-		for i in 1...Int(k) {
+		for i in minVal...maxVal {
 			let n_i = Double(self.countsForNumbers[i]!)
 			let dev = n_i - self.expectedValue
 			accum += dev*dev
 			self.chisq += dev*dev/self.expectedValue
-			let ksDistance = abs(Double(self.cumulHist[i]!) - self.expectedValue*(k - Double(i - 1)))
+			let ksDistance = abs(Double(self.cumulHist[i]!) - self.expectedValue*(k - Double(i - minVal)))
 			if ksDistance > maxKSDistance {
 				maxKSDistance = ksDistance
 			}
@@ -132,7 +141,7 @@ class RollCounts: NSObject {
 	}
 
 	func isChiSqSignificant95() -> Bool {
-		if let benchmark = chiTable95[self.countsForNumbers.count],
+		if let benchmark = chiTable95[self.nSides()],
 			self.chisq >= benchmark {
 			return true
 		}
@@ -140,7 +149,7 @@ class RollCounts: NSObject {
 	}
 
 	func isChiSqSignificant99() -> Bool {
-		if let benchmark = chiTable99[self.countsForNumbers.count],
+		if let benchmark = chiTable99[self.nSides()],
 			self.chisq >= benchmark {
 			return true
 		}
@@ -151,7 +160,7 @@ class RollCounts: NSObject {
 		if self.totalCount < 36 {
 			return false
 		}
-		if let benchmark = ksTable95[self.countsForNumbers.count],
+		if let benchmark = ksTable95[self.nSides()],
 			self.ks >= benchmark*sqrt(ks_n)/sqrt(Double(self.totalCount)) {
 			return true
 		}
@@ -162,7 +171,7 @@ class RollCounts: NSObject {
 		if self.totalCount < 36 {
 			return false
 		}
-		if let benchmark = ksTable99[self.countsForNumbers.count],
+		if let benchmark = ksTable99[self.nSides()],
 			self.ks >= benchmark*sqrt(ks_n)/sqrt(Double(self.totalCount)) {
 			return true
 		}
