@@ -36,7 +36,6 @@ class GraphView: UIView {
 
 	var rollCounts: RollCounts = RollCounts()
 	var showFullStats = false
-	var isMultiDie = false
 
 	fileprivate let totalLabel: UILabel = UILabel()
 	fileprivate let statsLabel: UILabel = UILabel()
@@ -250,7 +249,7 @@ class GraphView: UIView {
 				}
 			}
 			else {
-				if self.isMultiDie {
+				if let crt = self.rollCounts as? CombinedRollCounts {
 				}
 				else {
 					let bottomY = max(usableHeight*(CGFloat(self.rollCounts.expectedValue) - CGFloat(2.0*self.rollCounts.expectedStdev))/CGFloat(maxCount),
@@ -294,22 +293,37 @@ class GraphView: UIView {
 				}
 			}
 			else {
-				if self.isMultiDie {
+				if let crt = self.rollCounts as? CombinedRollCounts {
+					for i in 1...nBars {
+						let number = i + self.rollCounts.minVal - 1
+						let fairHeight = usableHeight*CGFloat(crt.expectedValues[number]!)/CGFloat(maxCount)
+
+						if i == 1 {
+							fairPath.move(to: CGPoint(x: self.leftEdgeForBar(index: 0, barWidth: barWidth),
+															  y: topMargin + usableHeight - fairHeight))
+						}
+						else {
+							fairPath.addLine(to: CGPoint(x: self.leftEdgeForBar(index: i - 1, barWidth: barWidth) - barSpacing/2.0,
+																  y: topMargin + usableHeight - fairHeight))
+						}
+						fairPath.addLine(to: CGPoint(x: self.leftEdgeForBar(index: i - 1, barWidth: barWidth) + barWidth + barSpacing/2.0,
+															  y: topMargin + usableHeight - fairHeight))
+					}
 				}
 				else {
 					let fairHeight = usableHeight*CGFloat(totalCount)/CGFloat(nBars)/CGFloat(maxCount)
 					fairPath.move(to: CGPoint(x: sideMargins/2.0, y: topMargin + usableHeight - fairHeight))
 					fairPath.addLine(to: CGPoint(x: self.frame.size.width - sideMargins/2.0,
 														  y: topMargin + usableHeight - fairHeight))
-
-					fairPath.setLineDash([5.0, 3.0], count: 2, phase: 0.0)
-					context?.setStrokeColor(red: 0.0, green: 0.8, blue: 0.0, alpha: 1.0)
 				}
+
+				fairPath.setLineDash([5.0, 3.0], count: 2, phase: 0.0)
+				context?.setStrokeColor(red: 0.0, green: 0.8, blue: 0.0, alpha: 1.0)
 			}
 			fairPath.stroke()
 		}
 
-		if Options.shared.drawWhiskers && totalCount >= nBars && !self.isMultiDie {
+		if Options.shared.drawWhiskers && totalCount >= nBars {
 			// draw whiskers at 2 sigma
 			let whiskerPath = UIBezierPath()
 			let whiskerDashPath = UIBezierPath()

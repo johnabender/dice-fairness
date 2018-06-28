@@ -66,9 +66,6 @@ class ViewController: UIViewController {
 		else if let graphVC = segue.destination as? GraphViewController {
 			if graphVC.restorationIdentifier == "GraphViewControllerTop" {
 				self.graphVCTop = graphVC
-				if let graphView = graphVC.view as? GraphView {
-					graphView.isMultiDie = true
-				}
 			}
 			else {
 				self.graphVCBottom = graphVC
