@@ -10,8 +10,6 @@ import UIKit
 
 class GraphViewController: UIViewController {
 
-	var rollCounts = RollCountsController.shared.rollCounts
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -26,7 +24,12 @@ class GraphViewController: UIViewController {
 		super.viewWillAppear(animated)
 
 		if let view = self.view as? GraphView {
-			view.rollCounts = self.rollCounts
+			if view.rollCounts == nil {
+				view.rollCounts = RollCountsController.shared.rollCounts
+			}
+			if view.options == nil {
+				view.options = Options.shared
+			}
 			view.setupLabels()
 			view.setNeedsDisplay()
 		}

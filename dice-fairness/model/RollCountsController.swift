@@ -53,15 +53,18 @@ class RollCountsController: NSObject {
 												  userInfo: userInfo)
 	}
 
-	func canSaveCurrentRolls() -> Bool {
-		if !self.hasChanged { return false }
-
+	func hasCurrentRolls() -> Bool {
 		for counts in self.rollCounts.countsForNumbers.values {
 			if counts > 0 {
 				return true
 			}
 		}
 		return false
+	}
+
+	func canSaveCurrentRolls() -> Bool {
+		if !self.hasChanged { return false }
+		return self.hasCurrentRolls()
 	}
 
 	func getCurrentDateStamp() -> String {

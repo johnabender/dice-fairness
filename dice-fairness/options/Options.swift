@@ -10,7 +10,7 @@ import UIKit
 
 let saveKey = "options-dice-fairness"
 
-class Options: NSObject {
+class Options: NSObject, NSCopying {
 	static let shared = Options()
 
 	var drawWhiskers = false
@@ -41,5 +41,15 @@ class Options: NSObject {
 											"drawFairnessEnvelope": self.drawFairnessEnvelope,
 											"drawCumulHist": self.drawCumulHist],
 										  forKey: saveKey)
+	}
+
+	func copy(with zone: NSZone? = nil) -> Any {
+		let copy = Options()
+		copy.drawWhiskers = self.drawWhiskers
+		copy.drawFairnessLine = self.drawFairnessLine
+		copy.drawFairnessEnvelope = self.drawFairnessEnvelope
+		copy.drawCumulHist = self.drawCumulHist
+
+		return copy
 	}
 }

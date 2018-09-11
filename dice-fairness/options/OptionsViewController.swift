@@ -18,17 +18,27 @@ class OptionsViewController: UIViewController {
 	@IBOutlet weak var showFairnessEnvelopeSwitch: UISwitch? = nil
 	@IBOutlet weak var showBarWhiskersSwitch: UISwitch? = nil
 	@IBOutlet weak var aboutStatsSpinner: UIActivityIndicatorView? = nil
+	@IBOutlet weak var showFairnessEnvelopeLabel: UILabel? = nil
+	@IBOutlet weak var loadSecondDieExplanationLabel: UILabel? = nil
 	@IBOutlet weak var versionLabel: UILabel? = nil
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
 
-		self.saveButton?.isEnabled = RollCountsController.shared.canSaveCurrentRolls()
-		self.loadSecondDieButton?.isEnabled = !RollCountsController.shared.hasChanged
+		self.setupSaveButtonsEnabled()
+
+		self.showFairnessLineSwitch?.isOn = Options.shared.drawFairnessLine
+		self.showFairnessEnvelopeSwitch?.isOn = Options.shared.drawFairnessEnvelope
+		self.showBarWhiskersSwitch?.isOn = Options.shared.drawWhiskers
+
+		self.versionLabel?.text = String(format: "v%@ (%@)", Bundle.main.releaseVersionNumber!, Bundle.main.buildVersionNumber!)
 
 		if RollCountsController.shared.secondRollCounts != nil {
 			self.sidesSelector?.selectedSegmentIndex = -1
 			self.sidesSelector?.isEnabled = false
+			self.showFairnessEnvelopeSwitch?.isEnabled = false
+			self.showFairnessEnvelopeLabel?.textColor = .darkGray
+			self.showBarWhiskersSwitch?.isEnabled = false
 		}
 		else {
 			switch RollCountsController.shared.currentNSides() {
@@ -55,18 +65,20 @@ class OptionsViewController: UIViewController {
 		case true:
 			self.histogramTypeSelector?.selectedSegmentIndex = 1
 		}
-
-		self.showFairnessLineSwitch?.isOn = Options.shared.drawFairnessLine
-		self.showFairnessEnvelopeSwitch?.isOn = Options.shared.drawFairnessEnvelope
-		self.showBarWhiskersSwitch?.isOn = Options.shared.drawWhiskers
-
-		self.versionLabel?.text = String(format: "v%@ (%@)", Bundle.main.releaseVersionNumber!, Bundle.main.buildVersionNumber!)
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 
 		self.aboutStatsSpinner?.stopAnimating()
+	}
+
+	func setupSaveButtonsEnabled() {
+		self.saveButton?.isEnabled = RollCountsController.shared.canSaveCurrentRolls()
+		self.loadSecondDieButton?.isEnabled = RollCountsController.shared.hasCurrentRolls() && !RollCountsController.shared.hasChanged
+		if self.loadSecondDieButton != nil {
+			self.loadSecondDieExplanationLabel?.isHidden = (!RollCountsController.shared.hasCurrentRolls()) || self.loadSecondDieButton!.isEnabled
+		}
 	}
 
 	@IBAction func pressedAboutStats() {
@@ -150,8 +162,10 @@ class OptionsViewController: UIViewController {
 			if saveAlert.textFields != nil,
 				saveAlert.textFields!.count > 0,
 				let text = saveAlert.textFields![0].text,
-				text != "" {
+				text != ""
+			{
 				RollCountsController.shared.saveCountsWithTitle(text)
+				self.setupSaveButtonsEnabled()
 			}
 		}))
 		self.present(saveAlert, animated: true, completion: nil)

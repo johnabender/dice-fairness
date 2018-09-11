@@ -26,7 +26,6 @@ class CombinedRollCounts: RollCounts {
 	let rollCounts: [RollCounts]
 
 	var expectedValues: Dictionary<Int,Double> = [:]
-	var expectedStdevs: Dictionary<Int,Double> = [:]
 
 	init(_ rollCounts: [RollCounts]) {
 		self.rollCounts = rollCounts
@@ -82,46 +81,25 @@ class CombinedRollCounts: RollCounts {
 				}
 
 				self.expectedValues = [:]
-				self.expectedStdevs = [:]
 				for i in count_i.keys {
 					let p_i = Double(count_i[i]!)/Double(count_k)
 					self.expectedValues[i] = n*p_i
-					self.expectedStdevs[i] = sqrt(n*p_i*(1.0 - p_i))
+				}
+
+				for i in minVal...maxVal {
+					var accum = 0.0
+					for j in minVal..<i {
+						accum += self.expectedValues[j]!
+					}
+					self.cumulExpectedValue[i] = n - accum
 				}
 			}
 			// else not implemented, would need to make more generic/recursive
 
 			self.expectedValue = 0.0
 			self.expectedStdev = 0.0
+			self.chisq = 0.0
+			self.ks = 0.0
 		}
-
-		/*
-		for i in (minVal...maxVal) {
-			let p_i = 1.0 - Double(i - minVal)/k
-			self.cumulExpectedValue[i] = n*p_i
-			self.cumulExpectedStdev[i] = sqrt(n*p_i*(1.0 - p_i))
-		}
-
-		var accum = 0.0
-		self.chisq = 0.0
-		var maxKSDistance = 0.0
-		for i in minVal...maxVal {
-			let n_i = Double(self.countsForNumbers[i]!)
-			let dev = n_i - self.expectedValue
-			accum += dev*dev
-			self.chisq += dev*dev/self.expectedValue
-			let ksDistance = abs(Double(self.cumulHist[i]!) - self.expectedValue*(k - Double(i - minVal)))
-			if ksDistance > maxKSDistance {
-				maxKSDistance = ksDistance
-			}
-		}
-		if n > 1.0 {
-			self.stdev = sqrt(accum/(n - 1.0))
-		}
-		else {
-			self.stdev = 0.0
-		}
-		self.ks = maxKSDistance/n
-*/
 	}
 }

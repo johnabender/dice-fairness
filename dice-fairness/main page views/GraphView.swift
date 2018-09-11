@@ -11,7 +11,7 @@ import UIKit
 let barSpacing = CGFloat(3)
 let sideMargins = CGFloat(20)
 let topMarginWithStats = CGFloat(60)
-let topMarginNoStats = CGFloat(20)
+let topMarginNoStats = CGFloat(40)
 let bottomMargin = CGFloat(30)
 let labelHeight = CGFloat(20)
 let whiskerDashLength = CGFloat(10)
@@ -34,7 +34,9 @@ public extension UILabel {
 
 class GraphView: UIView {
 
-	var rollCounts: RollCounts = RollCounts()
+	var rollCounts: RollCounts? = nil
+	var options: Options? = nil
+
 	var showFullStats = false
 
 	fileprivate let totalLabel: UILabel = UILabel()
@@ -45,7 +47,7 @@ class GraphView: UIView {
 	func setupLabels() {
 		self.subviews.forEach { $0.removeFromSuperview() }
 
-		let n = self.rollCounts.nSides()
+		let n = self.rollCounts == nil ? 0 : self.rollCounts!.nSides()
 
 		self.labelsToKeep = [self.totalLabel, self.statsLabel, self.chiLabel]
 
@@ -56,7 +58,7 @@ class GraphView: UIView {
 			label.translatesAutoresizingMaskIntoConstraints = false
 			label.adjustsFontSizeToFitWidth = true
 			label.minimumScaleFactor = 0.5
-			label.text = String(format: "%d", i + rollCounts.minVal)
+			label.text = String(format: "%d", i + self.rollCounts!.minVal)
 			label.textAlignment = .center
 			label.textColor = .white
 			self.addSubview(label)
@@ -81,15 +83,20 @@ class GraphView: UIView {
 			prevLabel = label
 		}
 
+		self.totalLabel.translatesAutoresizingMaskIntoConstraints = false
+		self.totalLabel.textAlignment = .left
+		self.totalLabel.textColor = .white
+		self.addSubview(self.totalLabel)
+		self.totalLabel.addConstraint(NSLayoutConstraint(item: self.totalLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: labelHeight))
+		self.addConstraint(NSLayoutConstraint(item: self.totalLabel, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: sideMargins))
 		if self.showFullStats {
-			self.totalLabel.translatesAutoresizingMaskIntoConstraints = false
-			self.totalLabel.textAlignment = .left
-			self.totalLabel.textColor = .white
-			self.addSubview(self.totalLabel)
-			self.totalLabel.addConstraint(NSLayoutConstraint(item: self.totalLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: labelHeight))
-			self.addConstraints([NSLayoutConstraint(item: self.totalLabel, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: sideMargins),
-										NSLayoutConstraint(item: self.totalLabel, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0)])
+			self.addConstraint(NSLayoutConstraint(item: self.totalLabel, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0))
+		}
+		else {
+			self.addConstraint(NSLayoutConstraint(item: self.totalLabel, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 10.0))
+		}
 
+		if self.showFullStats {
 			self.statsLabel.translatesAutoresizingMaskIntoConstraints = false
 			self.statsLabel.textAlignment = .right
 			self.addSubview(self.statsLabel)
@@ -142,19 +149,20 @@ class GraphView: UIView {
 	}
 
 	func heightForBar(index: Int, usableHeight: CGFloat) -> CGFloat {
-		let number = index + self.rollCounts.minVal - 1
-		if Options.shared.drawCumulHist && self.rollCounts.cumulHist[self.rollCounts.minVal]! > 0 {
-			return CGFloat(self.rollCounts.cumulHist[number]!)*usableHeight/CGFloat(self.rollCounts.cumulHist[self.rollCounts.minVal]!)
+		let number = index + self.rollCounts!.minVal - 1
+		if Options.shared.drawCumulHist && self.rollCounts!.cumulHist[self.rollCounts!.minVal]! > 0 {
+			return CGFloat(self.rollCounts!.cumulHist[number]!)*usableHeight/CGFloat(self.rollCounts!.cumulHist[self.rollCounts!.minVal]!)
 		}
-		else if !Options.shared.drawCumulHist && self.rollCounts.maxCount > 0 {
-			return CGFloat(self.rollCounts.countsForNumbers[number]!)*usableHeight/CGFloat(self.rollCounts.maxCount)
+		else if !Options.shared.drawCumulHist && self.rollCounts!.maxCount > 0 {
+			return CGFloat(self.rollCounts!.countsForNumbers[number]!)*usableHeight/CGFloat(self.rollCounts!.maxCount)
 		}
 		return CGFloat(0)
 	}
 
 	override func draw(_ rect: CGRect) {
-		let nBars = self.rollCounts.nSides()
+		let nBars = self.rollCounts == nil ? 0 : self.rollCounts!.nSides()
 		if nBars == 0 { return }
+		let rollCounts = self.rollCounts!
 
 		if self.subviews.count - self.labelsToKeep.count != nBars {
 			DispatchQueue.main.async {
@@ -162,16 +170,33 @@ class GraphView: UIView {
 			}
 		}
 
-		let totalCount = self.rollCounts.totalCount
-		var maxCount = self.rollCounts.maxCount
+		let totalCount = rollCounts.totalCount
+		var maxCount = rollCounts.maxCount
 		if Options.shared.drawCumulHist {
-			maxCount = self.rollCounts.cumulHist[self.rollCounts.minVal]!
+			maxCount = rollCounts.cumulHist[rollCounts.minVal]!
 		}
 
 		// total count in label
-		var s = "s"
-		if totalCount == 1 { s = "" }
-		self.totalLabel.text = String(format: "%d roll%@", totalCount, s)
+		if self.showFullStats {
+			var s = "s"
+			if totalCount == 1 { s = "" }
+			self.totalLabel.text = String(format: "%d roll%@", totalCount, s)
+		}
+		else {
+			if rollCounts.name != nil {
+				let breakpoint = RollCountsController.shared.getCurrentDateStamp().count + 4
+				let name = (rollCounts.name! as NSString).substring(to: rollCounts.name!.count - breakpoint - 1)
+				self.totalLabel.text = name
+			}
+			else {
+				if let _ = self.rollCounts as? CombinedRollCounts {
+					self.totalLabel.text = "dice rolled together"
+				}
+				else {
+					self.totalLabel.text = "[unsaved die]"
+				}
+			}
+		}
 
 		// stats in label
 		var conf = "low"
@@ -190,11 +215,11 @@ class GraphView: UIView {
 		// chi-squared or K-S value in label
 		if Options.shared.drawCumulHist {
 			var sig = "not significantly biased"
-			if self.rollCounts.isKSSignificant99() {
+			if rollCounts.isKSSignificant99() {
 				self.chiLabel.textColor = .red
 				sig = "significantly biased"
 			}
-			else if self.rollCounts.isKSSignificant95() {
+			else if rollCounts.isKSSignificant95() {
 				self.chiLabel.textColor = .yellow
 				sig = "marginally significant bias"
 			}
@@ -202,7 +227,7 @@ class GraphView: UIView {
 				self.chiLabel.textColor = .green
 			}
 			if totalCount >= 35 {
-				self.chiLabel.text = String(format: "D: %.3f (%@)", self.rollCounts.ks, sig)
+				self.chiLabel.text = String(format: "D: %.3f (%@)", rollCounts.ks, sig)
 			}
 			else {
 				self.chiLabel.text = ""
@@ -210,11 +235,11 @@ class GraphView: UIView {
 		}
 		else {
 			var sig = "not significantly biased"
-			if self.rollCounts.isChiSqSignificant99() {
+			if rollCounts.isChiSqSignificant99() {
 				self.chiLabel.textColor = .red
 				sig = "significantly biased"
 			}
-			else if self.rollCounts.isChiSqSignificant95() {
+			else if rollCounts.isChiSqSignificant95() {
 				self.chiLabel.textColor = .yellow
 				sig = "marginally significant bias"
 			}
@@ -222,7 +247,7 @@ class GraphView: UIView {
 				self.chiLabel.textColor = .green
 			}
 			if totalCount >= nBars {
-				self.chiLabel.text = String(format: "𝜒²: %.2f (%@)", self.rollCounts.chisq, sig)
+				self.chiLabel.text = String(format: "𝜒²: %.2f (%@)", rollCounts.chisq, sig)
 			}
 			else {
 				self.chiLabel.text = ""
@@ -235,13 +260,18 @@ class GraphView: UIView {
 
 		let context = UIGraphicsGetCurrentContext()
 
-		if Options.shared.drawFairnessEnvelope && totalCount >= nBars {
+		if self.options!.drawFairnessEnvelope && totalCount >= nBars {
 			// draw "fairness envelope"
 			context?.setFillColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
-			if Options.shared.drawCumulHist {
+
+			if let _ = self.rollCounts as? CombinedRollCounts {
+				// don't show confidence interval, it's too hard to calculate
+			}
+			else if Options.shared.drawCumulHist {
 				for i in 2...nBars {
-					let fairHeight = usableHeight*CGFloat(self.rollCounts.cumulExpectedValue[i]!)/CGFloat(maxCount)
-					let envelopeHeight = usableHeight*CGFloat(2.0*self.rollCounts.cumulExpectedStdev[i]!)/CGFloat(maxCount)
+					let number = i + rollCounts.minVal - 1
+					let fairHeight = usableHeight*CGFloat(rollCounts.cumulExpectedValue[number]!)/CGFloat(maxCount)
+					let envelopeHeight = usableHeight*CGFloat(2.0*rollCounts.cumulExpectedStdev[number]!)/CGFloat(maxCount)
 					let bottomY = max(fairHeight - envelopeHeight, 0.0)
 					let topY = min(fairHeight + envelopeHeight, usableHeight + whiskerDashLength)
 					let leftX = self.leftEdgeForBar(index: i - 1, barWidth: barWidth) - barSpacing/2.0
@@ -249,17 +279,14 @@ class GraphView: UIView {
 				}
 			}
 			else {
-				if let crt = self.rollCounts as? CombinedRollCounts {
-				}
-				else {
-					let bottomY = max(usableHeight*(CGFloat(self.rollCounts.expectedValue) - CGFloat(2.0*self.rollCounts.expectedStdev))/CGFloat(maxCount),
-											0.0)
-					let topY = min(usableHeight*(CGFloat(self.rollCounts.expectedValue) + CGFloat(2.0*self.rollCounts.expectedStdev))/CGFloat(maxCount),
-										usableHeight + whiskerDashLength)
-					let leftX = sideMargins/2.0
-					let rightX = self.frame.size.width - sideMargins/2.0
-					UIRectFillUsingBlendMode(CGRect(x: leftX, y: topMargin + usableHeight - topY, width: rightX - leftX, height: topY - bottomY), .normal)
-				}
+				// for a single die, non-cumulative histogram, all std. dev. values are the same
+				let bottomY = max(usableHeight*(CGFloat(rollCounts.expectedValue) - CGFloat(2.0*rollCounts.expectedStdev))/CGFloat(maxCount),
+										0.0)
+				let topY = min(usableHeight*(CGFloat(rollCounts.expectedValue) + CGFloat(2.0*rollCounts.expectedStdev))/CGFloat(maxCount),
+									usableHeight + whiskerDashLength)
+				let leftX = sideMargins/2.0
+				let rightX = self.frame.size.width - sideMargins/2.0
+				UIRectFillUsingBlendMode(CGRect(x: leftX, y: topMargin + usableHeight - topY, width: rightX - leftX, height: topY - bottomY), .normal)
 			}
 		}
 
@@ -272,58 +299,52 @@ class GraphView: UIView {
 			UIRectFillUsingBlendMode(CGRect(x: x, y: topMargin + whitespace, width: barWidth, height: height), .normal)
 		}
 
-		if Options.shared.drawFairnessLine && totalCount > 0 {
+		if self.options!.drawFairnessLine && totalCount > 0 {
 			// draw dashed "fairness line"
 			let fairPath = UIBezierPath()
-			if Options.shared.drawCumulHist {
-				fairPath.move(to: CGPoint(x: self.leftEdgeForBar(index: 0, barWidth: barWidth), y: topMargin))
-				for i in 1...nBars {
-					let number = i + self.rollCounts.minVal - 1
-					let fairHeight = usableHeight*CGFloat(self.rollCounts.cumulExpectedValue[number]!)/CGFloat(maxCount)
-					if i > 1 {
-						fairPath.addLine(to: CGPoint(x: self.leftEdgeForBar(index: i - 1, barWidth: barWidth) - barSpacing/2.0,
-															  y: topMargin + usableHeight - fairHeight))
-					}
-					fairPath.addLine(to: CGPoint(x: self.leftEdgeForBar(index: i - 1, barWidth: barWidth) + barWidth + barSpacing/2.0,
-														  y: topMargin + usableHeight - fairHeight))
+			fairPath.lineWidth = 2.0
+			fairPath.setLineDash([5.0, 3.0], count: 2, phase: 0.0)
+			context?.setStrokeColor(red: 0.0, green: 0.8, blue: 0.0, alpha: 1.0)
 
-					fairPath.setLineDash([2.0, 2.0], count: 2, phase: 0.0)
-					fairPath.lineWidth = 2.0
-					context?.setStrokeColor(red: 0.0, green: 0.8, blue: 0.0, alpha: 1.0)
-				}
+			let crc = self.rollCounts as? CombinedRollCounts
+			if crc == nil && !Options.shared.drawCumulHist {
+				// for a single die, non-cumulative histogram, all expected values are the same
+				let fairHeight = usableHeight*CGFloat(totalCount)/CGFloat(nBars)/CGFloat(maxCount)
+				fairPath.move(to: CGPoint(x: sideMargins/2.0, y: topMargin + usableHeight - fairHeight))
+				fairPath.addLine(to: CGPoint(x: self.frame.size.width - sideMargins/2.0,
+													  y: topMargin + usableHeight - fairHeight))
 			}
 			else {
-				if let crt = self.rollCounts as? CombinedRollCounts {
-					for i in 1...nBars {
-						let number = i + self.rollCounts.minVal - 1
-						let fairHeight = usableHeight*CGFloat(crt.expectedValues[number]!)/CGFloat(maxCount)
+				for i in 1...nBars {
+					let number = i + rollCounts.minVal - 1
 
-						if i == 1 {
-							fairPath.move(to: CGPoint(x: self.leftEdgeForBar(index: 0, barWidth: barWidth),
-															  y: topMargin + usableHeight - fairHeight))
+					var fairHeight = usableHeight*CGFloat(rollCounts.cumulExpectedValue[number]!)/CGFloat(maxCount)
+					if crc != nil {
+						if Options.shared.drawCumulHist {
+							fairHeight = usableHeight*CGFloat(crc!.cumulExpectedValue[number]!)/CGFloat(maxCount)
 						}
 						else {
-							fairPath.addLine(to: CGPoint(x: self.leftEdgeForBar(index: i - 1, barWidth: barWidth) - barSpacing/2.0,
-																  y: topMargin + usableHeight - fairHeight))
+							fairHeight = usableHeight*CGFloat(crc!.expectedValues[number]!)/CGFloat(maxCount)
 						}
-						fairPath.addLine(to: CGPoint(x: self.leftEdgeForBar(index: i - 1, barWidth: barWidth) + barWidth + barSpacing/2.0,
-															  y: topMargin + usableHeight - fairHeight))
 					}
-				}
-				else {
-					let fairHeight = usableHeight*CGFloat(totalCount)/CGFloat(nBars)/CGFloat(maxCount)
-					fairPath.move(to: CGPoint(x: sideMargins/2.0, y: topMargin + usableHeight - fairHeight))
-					fairPath.addLine(to: CGPoint(x: self.frame.size.width - sideMargins/2.0,
-														  y: topMargin + usableHeight - fairHeight))
+
+					let y = topMargin + usableHeight - fairHeight
+					if i == 1 {
+						fairPath.move(to: CGPoint(x: self.leftEdgeForBar(index: 0, barWidth: barWidth), y: y))
+					}
+					else {
+						fairPath.addLine(to: CGPoint(x: self.leftEdgeForBar(index: i - 1, barWidth: barWidth) - barSpacing/2.0, y: y))
+					}
+					fairPath.addLine(to: CGPoint(x: self.leftEdgeForBar(index: i - 1, barWidth: barWidth) + barWidth + barSpacing/2.0, y: y))
 				}
 
-				fairPath.setLineDash([5.0, 3.0], count: 2, phase: 0.0)
-				context?.setStrokeColor(red: 0.0, green: 0.8, blue: 0.0, alpha: 1.0)
+//				fairPath.setLineDash([2.0, 2.0], count: 2, phase: 0.0)
 			}
+
 			fairPath.stroke()
 		}
 
-		if Options.shared.drawWhiskers && totalCount >= nBars {
+		if self.options!.drawWhiskers && totalCount >= nBars {
 			// draw whiskers at 2 sigma
 			let whiskerPath = UIBezierPath()
 			let whiskerDashPath = UIBezierPath()
@@ -332,7 +353,7 @@ class GraphView: UIView {
 				let x = self.leftEdgeForBar(index: i - 1, barWidth: barWidth) + barWidth/2.0
 				let height = self.heightForBar(index: i, usableHeight: usableHeight)
 				let whitespace = usableHeight - height
-				let whiskerHeight = usableHeight*CGFloat(2.0*self.rollCounts.stdev)/CGFloat(maxCount)
+				let whiskerHeight = usableHeight*CGFloat(2.0*rollCounts.stdev)/CGFloat(maxCount)
 
 				var topY = topMargin + whitespace - whiskerHeight
 				if topY < topMargin {

@@ -36,16 +36,39 @@ class ViewController: UIViewController {
 
 		NotificationCenter.default.addObserver(self, selector: #selector(loadedSecondDie), name: NSNotification.Name(rawValue: "loadedSecondDie"), object: nil)
 
+		/*
 		///////////////////
-//		RollCountsController.shared.loadCountsWithTitle("asee-008-2018-06-21")
-		RollCountsController.shared.loadCountsWithTitle(">2-008-2018-06-22")
+//		RollCountsController.shared.loadCountsWithTitle(">2-008-2018-06-22")
+		RollCountsController.shared.loadCountsWithTitle(">2-008-2018-07-13")
 		let secondCounts = RollCountsController()
-//		secondCounts.loadCountsWithTitle("asee2-008-2018-06-22")
-		secondCounts.loadCountsWithTitle(">2-008-2018-06-22")
+//		secondCounts.loadCountsWithTitle(">2-008-2018-06-22")
+		secondCounts.loadCountsWithTitle(">2-008-2018-07-13")
 		RollCountsController.shared.setSecondRollCounts(secondCounts.rollCounts)
 		NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadedSecondDie"),
 												  object: secondCounts.rollCounts)
 		///////////////////
+*/
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		// if we're showing multiple dice, change display options
+		if RollCountsController.shared.secondRollCounts != nil {
+			let individualOptions = Options.shared.copy() as! Options
+			individualOptions.drawFairnessEnvelope = false
+			let groupOptions = Options.shared.copy() as! Options
+
+			if let graphView = self.graphVCTop?.view as? GraphView {
+				graphView.options = groupOptions
+			}
+			if let graphView = self.graphVCMiddle?.view as? GraphView {
+				graphView.options = individualOptions
+			}
+			if let graphView = self.graphVCBottom?.view as? GraphView {
+				graphView.options = individualOptions
+			}
+		}
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
@@ -106,6 +129,7 @@ class ViewController: UIViewController {
 
 			if let graphView = self.graphVCBottom?.view as? GraphView {
 				graphView.showFullStats = true
+				graphView.options = Options.shared
 			}
 		}
 		else if let secondRollCounts = note.object as? RollCounts {
@@ -121,17 +145,20 @@ class ViewController: UIViewController {
 			self.buttonAreaHeightConstraint?.constant = (ownHeight - topGraphHeight)/2.0
 
 			if let graphVC = storyboard.instantiateViewController(withIdentifier: "GraphViewController") as? GraphViewController {
-				graphVC.rollCounts = secondRollCounts
+				if let graphView = graphVC.view as? GraphView {
+					graphView.rollCounts = secondRollCounts
+				}
 				self.graphVCMiddle = graphVC
 				self.layoutNewMiddleVC(graphVC)
 			}
 
-			self.graphVCTop?.rollCounts = RollCountsController.shared.combinedRollCounts!
 			if let graphView = self.graphVCTop?.view as? GraphView {
+				graphView.rollCounts = RollCountsController.shared.combinedRollCounts
 				graphView.setupLabels()
 			}
 
 			if let graphView = self.graphVCBottom?.view as? GraphView {
+				graphView.rollCounts = RollCountsController.shared.rollCounts
 				graphView.showFullStats = false
 			}
 		}

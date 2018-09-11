@@ -106,6 +106,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save current die before loading a second" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJs-CK-Hf0">
+                                <rect key="frame" x="225" y="185" width="135" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="Cz2-zl-iaq"/>
+                                    <constraint firstAttribute="width" constant="135" id="u6d-my-ljG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buF-a6-q4d">
                                 <rect key="frame" x="15" y="146" width="58" height="44"/>
                                 <color key="tintColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -233,7 +243,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scQ-Xp-QFs">
                                 <rect key="frame" x="166.33333333333334" y="763.66666666666663" width="42.333333333333343" height="14.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="qxw-cN-pKs">
@@ -260,10 +270,12 @@
                             <constraint firstItem="LUm-Oc-7pa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="buF-a6-q4d" secondAttribute="trailing" constant="30" id="T3t-vb-JOL"/>
                             <constraint firstItem="22v-tp-43K" firstAttribute="trailing" secondItem="jDp-8j-rh6" secondAttribute="trailing" id="UlM-eK-YIg"/>
                             <constraint firstItem="scQ-Xp-QFs" firstAttribute="centerX" secondItem="q7w-cB-7Ce" secondAttribute="centerX" id="VYN-pE-6oW"/>
+                            <constraint firstItem="XJs-CK-Hf0" firstAttribute="trailing" secondItem="YgC-f9-b5a" secondAttribute="trailing" id="Wfa-m3-FeZ"/>
                             <constraint firstItem="Jm3-Eo-hsC" firstAttribute="bottom" secondItem="jDp-8j-rh6" secondAttribute="top" constant="-15" id="ZXf-ti-wFX"/>
                             <constraint firstItem="buF-a6-q4d" firstAttribute="top" secondItem="LUm-Oc-7pa" secondAttribute="top" id="alz-T8-htq"/>
                             <constraint firstItem="YgC-f9-b5a" firstAttribute="leading" secondItem="LUm-Oc-7pa" secondAttribute="trailing" constant="30" id="ax2-E5-NOh"/>
                             <constraint firstItem="scQ-Xp-QFs" firstAttribute="bottom" secondItem="q7w-cB-7Ce" secondAttribute="bottom" id="be3-q3-doj"/>
+                            <constraint firstItem="YgC-f9-b5a" firstAttribute="bottom" secondItem="XJs-CK-Hf0" secondAttribute="top" constant="5" id="bjZ-TR-N3T"/>
                             <constraint firstItem="buF-a6-q4d" firstAttribute="leading" secondItem="q7w-cB-7Ce" secondAttribute="leading" constant="15" id="d7L-fF-hGH"/>
                             <constraint firstItem="kwE-JM-RTT" firstAttribute="leading" secondItem="mwV-cp-xMi" secondAttribute="leading" id="eRw-dR-ji6"/>
                             <constraint firstItem="qxw-cN-pKs" firstAttribute="centerY" secondItem="Jm3-Eo-hsC" secondAttribute="centerY" id="fVq-DS-cZR"/>
@@ -285,8 +297,10 @@
                         <outlet property="aboutStatsSpinner" destination="qxw-cN-pKs" id="4fo-ya-fk0"/>
                         <outlet property="histogramTypeSelector" destination="jDp-8j-rh6" id="93v-fw-ahw"/>
                         <outlet property="loadSecondDieButton" destination="YgC-f9-b5a" id="pmb-er-0Ap"/>
+                        <outlet property="loadSecondDieExplanationLabel" destination="XJs-CK-Hf0" id="275-EQ-BRf"/>
                         <outlet property="saveButton" destination="buF-a6-q4d" id="QbC-LG-f30"/>
                         <outlet property="showBarWhiskersSwitch" destination="kwE-JM-RTT" id="EZf-Rm-mnw"/>
+                        <outlet property="showFairnessEnvelopeLabel" destination="Du5-3U-ifl" id="Hnc-v1-hs5"/>
                         <outlet property="showFairnessEnvelopeSwitch" destination="4lz-9F-loA" id="xgG-Mf-tcB"/>
                         <outlet property="showFairnessLineSwitch" destination="mwV-cp-xMi" id="0Jj-am-BUR"/>
                         <outlet property="sidesSelector" destination="22v-tp-43K" id="rL3-dq-4zV"/>
@@ -295,7 +309,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fT0-Vy-Z1s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.25" y="923.23943661971828"/>
+            <point key="canvasLocation" x="130.40000000000001" y="922.90640394088678"/>
         </scene>
         <!--Load Rolls Table View Controller-->
         <scene sceneID="hf6-Zl-XhH">
@@ -557,7 +571,37 @@
                                         </attributes>
                                     </fragment>
                                     <fragment>
-                                        <string key="content"> the 1s, and so on. The ideal shape for a cumulative histogram is a perfectly regular stair-step, where each number is just as likely as the ones before and after it. The cumulative histogram is best for any game where similar rolls lead to similar outcomes, as in most RPGs.  </string>
+                                        <string key="content"> the 1s, and so on. The ideal shape for a cumulative histogram is a perfectly regular stair-step, where each number is just as likely as the ones before and after it. The cumulative histogram is best for any game where similar rolls lead to similar outcomes, as in most RPGs.</string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">  This app also allows you to visualize how particular dice are likely to sum together. To display multiple dice, you must save rolls for at least one of the dice. You can then load a second die to sum with any other die, displaying the probable outcomes of rolling the two dice together. This ability is useful for games where outcomes may vary wildly depending on summed dice rolls, such as in craps or </string>
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="Settlers of Catan">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue-Italic"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=". (The statistics below are only calculated for individual dice, however.) ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="  ">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -580,8 +624,23 @@
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                         </attributes>
                                     </fragment>
+                                    <fragment content=" In">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
                                     <fragment>
-                                        <string key="content"> In reality, because dice are random, the histograms will not be perfectly regular. The important question is whether the variations in the histogram are </string>
+                                        <string key="content">reality, because dice are random, the histograms will not be perfectly regular. The important question is whether the variations in the histogram are </string>
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
