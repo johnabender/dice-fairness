@@ -6,6 +6,8 @@
 //  Copyright © 2018 Bender Systems. All rights reserved.
 //
 
+// https://stackoverflow.com/a/29978300
+
 import Foundation
 
 public extension Bundle {
