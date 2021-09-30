@@ -165,21 +165,21 @@ class ViewController: UIViewController {
 	}
 
 	func removeMiddleVC(_ vc: UIViewController?) {
-		vc?.willMove(toParentViewController: nil)
+		vc?.willMove(toParent: nil)
 		vc?.view.removeFromSuperview()
-		vc?.removeFromParentViewController()
+		vc?.removeFromParent()
 	}
 
 	func layoutNewMiddleVC(_ vc: UIViewController) {
-		self.addChildViewController(vc)
+		self.addChild(vc)
 		vc.view.translatesAutoresizingMaskIntoConstraints = false
 		self.buttonAreaView?.addSubview(vc.view)
-		vc.didMove(toParentViewController: self)
+		vc.didMove(toParent: self)
 		self.buttonAreaView?.addConstraints([
-			NSLayoutConstraint(item: vc.view, attribute: .top, relatedBy: .equal, toItem: self.buttonAreaView, attribute: .top, multiplier: 1.0, constant: 0.0),
-			NSLayoutConstraint(item: vc.view, attribute: .left, relatedBy: .equal, toItem: self.buttonAreaView, attribute: .left, multiplier: 1.0, constant: 0.0),
-			NSLayoutConstraint(item: vc.view, attribute: .right, relatedBy: .equal, toItem: self.buttonAreaView, attribute: .right, multiplier: 1.0, constant: 0.0),
-			NSLayoutConstraint(item: vc.view, attribute: .bottom, relatedBy: .equal, toItem: self.buttonAreaView, attribute: .bottom, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: vc.view as Any, attribute: .top, relatedBy: .equal, toItem: self.buttonAreaView, attribute: .top, multiplier: 1.0, constant: 0.0),
+			NSLayoutConstraint(item: vc.view as Any, attribute: .left, relatedBy: .equal, toItem: self.buttonAreaView, attribute: .left, multiplier: 1.0, constant: 0.0),
+			NSLayoutConstraint(item: vc.view as Any, attribute: .right, relatedBy: .equal, toItem: self.buttonAreaView, attribute: .right, multiplier: 1.0, constant: 0.0),
+			NSLayoutConstraint(item: vc.view as Any, attribute: .bottom, relatedBy: .equal, toItem: self.buttonAreaView, attribute: .bottom, multiplier: 1.0, constant: 0.0),
 		])
 	}
 }

@@ -21,11 +21,11 @@ public extension UILabel {
 	func approximateAdjustedFontSize() -> CGFloat {
 		var currentFont: UIFont = self.font
 		let originalFontSize = currentFont.pointSize
-		var currentSize: CGSize = (self.text! as NSString).size(withAttributes: [NSAttributedStringKey.font: currentFont])
+		var currentSize: CGSize = (self.text! as NSString).size(withAttributes: [NSAttributedString.Key.font: currentFont])
 
 		while currentSize.width > self.frame.size.width && currentFont.pointSize > (originalFontSize * self.minimumScaleFactor) {
 			currentFont = currentFont.withSize(currentFont.pointSize - 1.0)
-			currentSize = (self.text! as NSString).size(withAttributes: [NSAttributedStringKey.font: currentFont])
+			currentSize = (self.text! as NSString).size(withAttributes: [NSAttributedString.Key.font: currentFont])
 		}
 
 		return currentFont.pointSize

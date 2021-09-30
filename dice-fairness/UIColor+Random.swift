@@ -17,11 +17,11 @@ public extension UIColor {
 		return CGFloat(CGFloat(arc4random()).truncatingRemainder(dividingBy: 256.0) / 255.0)
 	}
 
-	public class func random() -> UIColor {
+	class func random() -> UIColor {
 		return UIColor(red: RC_randomValueForColor(), green: RC_randomValueForColor(), blue: RC_randomValueForColor(), alpha: 1.0)
 	}
 
-	public class func randomToneForColor(color: UIColor) -> UIColor {
+	class func randomToneForColor(color: UIColor) -> UIColor {
 		var hue: CGFloat = 0
 		var saturation: CGFloat = 0
 		var brightness: CGFloat = 0
@@ -36,7 +36,7 @@ public extension UIColor {
 	Random color using the golden ratio, so proper random colors
 	Inspired by http://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
 	*/
-	public class func randomGoldenRatioColor(saturation: CGFloat = 0.5, brightness: CGFloat = 0.95) -> UIColor {
+	class func randomGoldenRatioColor(saturation: CGFloat = 0.5, brightness: CGFloat = 0.95) -> UIColor {
 		let goldenRatioConjugate: CGFloat = 0.618033988749895
 		var hue = RC_randomValueForColor()
 
