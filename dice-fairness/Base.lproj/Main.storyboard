@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OdF-h4-PNh">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OdF-h4-PNh">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,7 +13,7 @@
             <objects>
                 <navigationController id="OdF-h4-PNh" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="5p0-Cf-O7Q">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="47" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
@@ -35,13 +34,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="20r-db-Y1S">
-                                <rect key="frame" x="0.0" y="458" width="375" height="320"/>
+                                <rect key="frame" x="0.0" y="461" width="375" height="317"/>
                                 <connections>
                                     <segue destination="pmM-Qc-WE8" kind="embed" id="bIY-uK-RkK"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hok-ex-hhZ">
-                                <rect key="frame" x="0.0" y="108" width="375" height="350"/>
+                                <rect key="frame" x="0.0" y="111" width="375" height="350"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="350" id="SPK-BU-yGL"/>
@@ -51,7 +50,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zwX-jC-fS6">
-                                <rect key="frame" x="0.0" y="88" width="375" height="20"/>
+                                <rect key="frame" x="0.0" y="91" width="375" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="FBR-CK-QGD"/>
                                 </constraints>
@@ -60,6 +59,7 @@
                                 </connections>
                             </containerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="hok-ex-hhZ" firstAttribute="top" secondItem="zwX-jC-fS6" secondAttribute="bottom" id="ApK-od-szj"/>
@@ -73,7 +73,6 @@
                             <constraint firstItem="hok-ex-hhZ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="u7A-Ta-blj"/>
                             <constraint firstItem="zwX-jC-fS6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="yyF-v4-Ttu"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Current Rolls" id="ZJT-vd-okg">
                         <barButtonItem key="leftBarButtonItem" title="Reset" id="cxM-nZ-HET">
@@ -107,7 +106,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save current die before loading a second" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJs-CK-Hf0">
-                                <rect key="frame" x="225" y="185" width="135" height="24"/>
+                                <rect key="frame" x="225" y="191" width="135" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="Cz2-zl-iaq"/>
                                     <constraint firstAttribute="width" constant="135" id="u6d-my-ljG"/>
@@ -116,8 +115,8 @@
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buF-a6-q4d">
-                                <rect key="frame" x="15" y="146" width="58" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buF-a6-q4d">
+                                <rect key="frame" x="15" y="152" width="58" height="44"/>
                                 <color key="tintColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Save die"/>
                                 <state key="disabled">
@@ -130,8 +129,8 @@
                                     <action selector="pressedSave" destination="gPG-wL-Kfl" eventType="touchUpInside" id="GNd-eC-34f"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUm-Oc-7pa">
-                                <rect key="frame" x="158" y="146" width="59" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUm-Oc-7pa">
+                                <rect key="frame" x="158" y="152" width="59" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="96x-4t-YjF"/>
                                 </constraints>
@@ -147,8 +146,8 @@
                                     <segue destination="K3e-0X-hVW" kind="show" id="WuG-Td-ltS"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YgC-f9-b5a">
-                                <rect key="frame" x="247" y="146" width="113" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YgC-f9-b5a">
+                                <rect key="frame" x="247" y="152" width="113" height="44"/>
                                 <color key="tintColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Load second die"/>
                                 <state key="disabled">
@@ -158,8 +157,8 @@
                                     <segue destination="K3e-0X-hVW" kind="show" id="7nF-xO-aIf"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jm3-Eo-hsC">
-                                <rect key="frame" x="134" y="200" width="107" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jm3-Eo-hsC">
+                                <rect key="frame" x="134" y="206" width="107" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="JFB-rp-mNr"/>
                                 </constraints>
@@ -176,7 +175,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jDp-8j-rh6">
-                                <rect key="frame" x="15" y="259" width="345" height="29"/>
+                                <rect key="frame" x="15" y="265" width="345" height="32"/>
                                 <segments>
                                     <segment title="Count histogram"/>
                                     <segment title="Cumulative histogram"/>
@@ -187,7 +186,7 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="22v-tp-43K">
-                                <rect key="frame" x="15" y="103" width="345" height="29"/>
+                                <rect key="frame" x="15" y="106" width="345" height="32"/>
                                 <segments>
                                     <segment title="d4"/>
                                     <segment title="d6"/>
@@ -196,46 +195,45 @@
                                     <segment title="d12"/>
                                     <segment title="d20"/>
                                 </segments>
-                                <color key="tintColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
                                     <action selector="chooseDiceWithSender:" destination="gPG-wL-Kfl" eventType="valueChanged" id="NIz-4d-ivv"/>
                                 </connections>
                             </segmentedControl>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mwV-cp-xMi">
-                                <rect key="frame" x="15" y="312" width="51" height="31"/>
+                                <rect key="frame" x="15" y="321" width="51" height="31"/>
                                 <color key="onTintColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
                                     <action selector="switchedGraphOption" destination="gPG-wL-Kfl" eventType="valueChanged" id="SNf-TH-nSh"/>
                                 </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4lz-9F-loA">
-                                <rect key="frame" x="15" y="358" width="51" height="31"/>
+                                <rect key="frame" x="15" y="367" width="51" height="31"/>
                                 <color key="onTintColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
                                     <action selector="switchedGraphOption" destination="gPG-wL-Kfl" eventType="valueChanged" id="KoR-8s-tGo"/>
                                 </connections>
                             </switch>
                             <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kwE-JM-RTT">
-                                <rect key="frame" x="15" y="404" width="51" height="31"/>
+                                <rect key="frame" x="15" y="413" width="51" height="31"/>
                                 <color key="onTintColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
                                     <action selector="switchedGraphOption" destination="gPG-wL-Kfl" eventType="valueChanged" id="gbA-c6-z8L"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show ideal values" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQb-to-ZYO">
-                                <rect key="frame" x="74" y="319" width="122" height="18"/>
+                                <rect key="frame" x="74" y="327.66666666666669" width="122" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show confidence interval" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Du5-3U-ifl">
-                                <rect key="frame" x="73.999999999999986" y="365" width="172.66666666666663" height="18"/>
+                                <rect key="frame" x="73.999999999999986" y="373.66666666666669" width="172.66666666666663" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show error bars" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2JP-Xa-whP">
-                                <rect key="frame" x="74" y="411" width="109.66666666666669" height="18"/>
+                                <rect key="frame" x="74" y="419.66666666666669" width="109" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -247,9 +245,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="qxw-cN-pKs">
-                                <rect key="frame" x="177.66666666666666" y="212" width="20" height="20"/>
+                                <rect key="frame" x="177.66666666666666" y="218" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="q7w-cB-7Ce"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="2JP-Xa-whP" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="q7w-cB-7Ce" secondAttribute="trailing" constant="-15" id="1Zf-Ou-Q1K"/>
@@ -291,7 +290,6 @@
                             <constraint firstItem="Du5-3U-ifl" firstAttribute="centerY" secondItem="4lz-9F-loA" secondAttribute="centerY" id="yDm-CZ-TYD"/>
                             <constraint firstItem="4lz-9F-loA" firstAttribute="top" secondItem="mwV-cp-xMi" secondAttribute="bottom" constant="15" id="zEU-Dp-nLB"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="q7w-cB-7Ce"/>
                     </view>
                     <connections>
                         <outlet property="aboutStatsSpinner" destination="qxw-cN-pKs" id="4fo-ya-fk0"/>
@@ -321,21 +319,21 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="savedRollsCell" textLabel="cz3-Lg-OZG" detailTextLabel="t8K-eJ-Qfm" style="IBUITableViewCellStyleValue1" id="hFi-3f-hyX">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hFi-3f-hyX" id="Kbn-xE-35G">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cz3-Lg-OZG">
-                                            <rect key="frame" x="16.000000000000004" y="11.999999999999998" width="33.333333333333336" height="20.333333333333332"/>
+                                            <rect key="frame" x="20" y="11.999999999999998" width="33" height="20.333333333333332"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t8K-eJ-Qfm">
-                                            <rect key="frame" x="321.66666666666669" y="15" width="37.333333333333336" height="17"/>
+                                            <rect key="frame" x="317.66666666666669" y="15" width="37.333333333333336" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -365,15 +363,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="kPV-v2-6Mk">
-                                <rect key="frame" x="169" y="392.66666666666669" width="37" height="37"/>
+                                <rect key="frame" x="169" y="394" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                        <viewLayoutGuide key="safeArea" id="U4m-EL-Za0"/>
+                        <color key="backgroundColor" systemColor="lightTextColor"/>
                         <constraints>
                             <constraint firstItem="kPV-v2-6Mk" firstAttribute="centerY" secondItem="U4m-EL-Za0" secondAttribute="centerY" id="Ish-hp-Lh1"/>
                             <constraint firstItem="kPV-v2-6Mk" firstAttribute="centerX" secondItem="U4m-EL-Za0" secondAttribute="centerX" id="z7k-Qa-vzE"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="U4m-EL-Za0"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6DX-57-ckW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -389,7 +387,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yWZ-gW-yFa">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <rect key="frame" x="0.0" y="47" width="375" height="731"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Roll the dice">
@@ -401,7 +399,7 @@
                                         </attributes>
                                     </fragment>
                                     <fragment>
-                                        <mutableString key="content">  A fair die should have an equal likelihood of rolling each number. Only one number comes up on each roll, though, so how can you tell if your die is fair?  The most straightforward way to determine if a die is fair is to roll it many times and see if some numbers come up more often than others. But mathematically, streaks are </mutableString>
+                                        <string key="content">  A fair die should have an equal likelihood of rolling each number. Only one number comes up on each roll, though, so how can you tell if your die is fair?  The most straightforward way to determine if a die is fair is to roll it many times and see if some numbers come up more often than others. But mathematically, streaks are </string>
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -554,7 +552,7 @@
                                         </attributes>
                                     </fragment>
                                     <fragment>
-                                        <mutableString key="content">, with one bar for each side on the die. There are two types of histograms available: a count histogram and a cumulative histogram.  The count histogram is the easiest to understand. The height of each bar indicates how many times the corresponding number has been rolled. The ideal values for a count histogram are when each number has been rolled the same number of times, so each bar is the same height.  On a cumulative histogram, the height of each bar indicates how often a rol</mutableString>
+                                        <string key="content">, with one bar for each side on the die. There are two types of histograms available: a count histogram and a cumulative histogram.  The count histogram is the easiest to understand. The height of each bar indicates how many times the corresponding number has been rolled. The ideal values for a count histogram are when each number has been rolled the same number of times, so each bar is the same height.  On a cumulative histogram, the height of each bar indicates how often a rol</string>
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -640,7 +638,7 @@
                                         </attributes>
                                     </fragment>
                                     <fragment>
-                                        <mutableString key="content">.  This app also allows you to visualize how particular dice are likely to sum together. To display multiple dice, you must save results for both dice. You can then load and display any two dice together to see the probable outcomes. This ability is useful for games where outcomes may vary wildly depending on summed dice rolls, such as in craps or </mutableString>
+                                        <string key="content">.  This app also allows you to visualize how particular dice are likely to sum together. To display multiple dice, you must save results for both dice. You can then load and display any two dice together to see the probable outcomes. This ability is useful for games where outcomes may vary wildly depending on summed dice rolls, such as in craps or </string>
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -1181,7 +1179,7 @@
                                         </attributes>
                                     </fragment>
                                     <fragment>
-                                        <mutableString key="content"> depends on how certain you want to be about your conclusion. In this app, the statistical value is colored green unless it's 95% certain that the die is unfair. From 95-99% certainty, the statistic is colored yellow, and at 99% certainty, the statistic turns red.  Whether a biased or "unfair" die is usable in a game is up to you. In practice, even deliberately modified dice are still quite random. With the small number of rolls occurring in a typical gaming session, the randomness in the rolls will typically be larger than any amount of bias you'd observe even in a very unfair die. </mutableString>
+                                        <string key="content"> depends on how certain you want to be about your conclusion. In this app, the statistical value is colored green unless it's 95% certain that the die is unfair. From 95-99% certainty, the statistic is colored yellow, and at 99% certainty, the statistic turns red.  Whether a biased or "unfair" die is usable in a game is up to you. In practice, even deliberately modified dice are still quite random. With the small number of rolls occurring in a typical gaming session, the randomness in the rolls will typically be larger than any amount of bias you'd observe even in a very unfair die. </string>
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -1226,6 +1224,7 @@
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="NcF-UD-mfz"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="yWZ-gW-yFa" firstAttribute="bottom" secondItem="NcF-UD-mfz" secondAttribute="bottom" id="8Ae-PY-qRq"/>
@@ -1233,7 +1232,6 @@
                             <constraint firstItem="yWZ-gW-yFa" firstAttribute="trailing" secondItem="NcF-UD-mfz" secondAttribute="trailing" id="Xxz-GJ-a9f"/>
                             <constraint firstItem="yWZ-gW-yFa" firstAttribute="leading" secondItem="NcF-UD-mfz" secondAttribute="leading" id="lIb-Wv-MMU"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="NcF-UD-mfz"/>
                     </view>
                     <connections>
                         <outlet property="textView" destination="yWZ-gW-yFa" id="JxD-Mv-ePb"/>
@@ -1248,10 +1246,10 @@
             <objects>
                 <viewController storyboardIdentifier="GraphViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pmM-Qc-WE8" customClass="GraphViewController" customModule="dice_fairness" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PIM-Zb-b58" customClass="GraphView" customModule="dice_fairness" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="317"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="izq-UJ-Krd"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a4T-T5-UUI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1267,7 +1265,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="krK-3c-sLA">
-                                <rect key="frame" x="0.0" y="135" width="35" height="90"/>
+                                <rect key="frame" x="0.0" y="153.66666666666666" width="35" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="7mU-N9-CsI"/>
                                     <constraint firstAttribute="height" constant="90" id="rVw-Uw-fn5"/>
@@ -1277,12 +1275,12 @@
                                 </connections>
                             </containerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Yd7-kL-5Uc"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="krK-3c-sLA" firstAttribute="centerY" secondItem="Yd7-kL-5Uc" secondAttribute="centerY" id="dgC-HZ-9rP"/>
                             <constraint firstItem="krK-3c-sLA" firstAttribute="leading" secondItem="Yd7-kL-5Uc" secondAttribute="leading" id="zYU-Ya-Y6p"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Yd7-kL-5Uc"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xug-T2-TAB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1298,17 +1296,18 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVc-Gw-GYM">
-                                <rect key="frame" x="0.0" y="44" width="35" height="12"/>
+                                <rect key="frame" x="0.0" y="47" width="35" height="43"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iaw-cl-qwa">
-                                <rect key="frame" x="0.0" y="44" width="35" height="12"/>
+                                <rect key="frame" x="0.0" y="47" width="35" height="43"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="9mx-Yd-QOH"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Iaw-cl-qwa" firstAttribute="bottom" secondItem="kVc-Gw-GYM" secondAttribute="bottom" id="1KW-mK-NWt"/>
@@ -1320,7 +1319,6 @@
                             <constraint firstItem="kVc-Gw-GYM" firstAttribute="trailing" secondItem="9mx-Yd-QOH" secondAttribute="trailing" id="ulq-Ac-cas"/>
                             <constraint firstItem="Iaw-cl-qwa" firstAttribute="trailing" secondItem="kVc-Gw-GYM" secondAttribute="trailing" id="xtH-CR-WxS"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="9mx-Yd-QOH"/>
                     </view>
                     <connections>
                         <outlet property="blurView" destination="Iaw-cl-qwa" id="u19-tZ-S9I"/>
@@ -1338,8 +1336,8 @@
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="3eU-gJ-uan" customClass="GraphView" customModule="dice_fairness" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="TZw-l8-330"/>
+                        <color key="backgroundColor" red="0.4529846656" green="0.61682529139999998" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x6F-gn-7cE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1350,4 +1348,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="7nF-xO-aIf"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <systemColor name="lightTextColor">
+            <color white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

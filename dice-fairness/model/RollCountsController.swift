@@ -74,7 +74,11 @@ class RollCountsController: NSObject {
 	}
 
 	func saveCountsWithTitle(_ title: String) {
-		let data = NSKeyedArchiver.archivedData(withRootObject: self.rollCounts.countsForNumbers)
+        let data = try? PropertyListEncoder().encode(self.rollCounts.countsForNumbers)
+        if data == nil {
+            print("failed encoding (saving) roll counts, with no notification :(")
+            return
+        }
 		let formattedCount = String(format: "%03d", self.rollCounts.nSides())
 		let saveSuffix = "-" + formattedCount + "-" + self.getCurrentDateStamp()
 		UserDefaults.standard.set(data, forKey: savePrefix + title + saveSuffix)
@@ -93,12 +97,20 @@ class RollCountsController: NSObject {
 	}
 
 	func loadCountsWithTitle(_ title: String) {
-		if let data = UserDefaults.standard.object(forKey: savePrefix + title) as? NSData,
-			let newCounts = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as? Dictionary<Int,Int> {
-			self.rollCounts.countsForNumbers = newCounts
+        if let data = UserDefaults.standard.object(forKey: savePrefix + title) as? Data {
+            var newCounts: Dictionary<Int,Int>?
+            newCounts = try? PropertyListDecoder().decode(Dictionary<Int,Int>.self, from: data)
+            if newCounts == nil {
+                newCounts = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSDictionary.self, from: data) as? Dictionary<Int,Int>
+            }
+            if newCounts == nil {
+                return
+            }
+
+            self.rollCounts.countsForNumbers = newCounts!
 			self.rollCounts.name = title
 			var min = 0, max = 0
-			for key in newCounts.keys {
+			for key in newCounts!.keys {
 				if min == 0 || key < min {
 					min = key
 				}

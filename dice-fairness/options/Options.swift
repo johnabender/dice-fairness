@@ -37,10 +37,10 @@ class Options: NSObject, NSCopying {
 
 	func save() {
 		UserDefaults.standard.set(["drawWhiskers": self.drawWhiskers,
-											"drawFairnessLine": self.drawFairnessLine,
-											"drawFairnessEnvelope": self.drawFairnessEnvelope,
-											"drawCumulHist": self.drawCumulHist],
-										  forKey: saveKey)
+                                   "drawFairnessLine": self.drawFairnessLine,
+                                   "drawFairnessEnvelope": self.drawFairnessEnvelope,
+                                   "drawCumulHist": self.drawCumulHist],
+                                  forKey: saveKey)
 	}
 
 	func copy(with zone: NSZone? = nil) -> Any {

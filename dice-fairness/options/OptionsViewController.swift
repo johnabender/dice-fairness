@@ -22,6 +22,15 @@ class OptionsViewController: UIViewController {
 	@IBOutlet weak var loadSecondDieExplanationLabel: UILabel? = nil
 	@IBOutlet weak var versionLabel: UILabel? = nil
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.sidesSelector?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+        self.sidesSelector?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+        self.histogramTypeSelector?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+        self.histogramTypeSelector?.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+    }
+    
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
 
